@@ -10,3 +10,4 @@ insert into todolist (todo) values ('공부하기');
 select * from todolist;
 
 delete from todolist
+-- 

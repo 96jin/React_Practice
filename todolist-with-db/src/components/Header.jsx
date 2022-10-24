@@ -17,7 +17,7 @@ export default function Header() {
       console.log(newList)
       setTodoList(newList)
   }
-
+  
   if(!flag){
     setFlag(true)
     handleClickSelect()

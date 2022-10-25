@@ -1,32 +1,38 @@
 import React, { useRef, useState } from 'react'
 import axios from 'axios'
 import TodoBox from './TodoBox';
+import { useEffect } from 'react';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+
 
 export default function Header() {
-  
   const [inputValue, setInputValue] = useState('')
   const [todoList, setTodoList] = useState([])
-  const [flag, setFlag] = useState(false)
-
+  const [checkedList, setCheckedList] = useState([])
+  const [listDbIdx, setListDbIdx] = useState([])
   const inputRef = useRef()
 
-  
+  // 화면에 그리기 위한 기능
   const handleClickSelect = async () => {
-      const firstValue = await axios.get('/selectAll')
-      const newList = firstValue.data.map((list)=>list.todo)
-      console.log(newList)
-      setTodoList(newList)
+    const firstValue = await axios.get('/selectAll')
+    const newList = firstValue.data.map((list)=>list.todo)
+    const newListDbIdx = firstValue.data.map((list)=>list.idx)
+    const newCheckedList = firstValue.data.map((list)=>list.checked)
+    setTodoList(newList)
+    setCheckedList(newCheckedList)
+    setListDbIdx(newListDbIdx)
   }
   
-  if(!flag){
-    setFlag(true)
+  // 렌더링 될 때 마다 
+  useEffect(()=>{
     handleClickSelect()
-  }
+  },[])
   
-
+  // 키보드 입력, 엔터
   const handleChangeInput = (e) => {
     setInputValue(e.target.value)
-    
   }
   const handleKeyDownInput = async(e) => {
     if(e.keyCode === 13){
@@ -37,7 +43,7 @@ export default function Header() {
       setTodoList([...todoList,inputValue])
       const addObj = {addList : `${inputValue}`}
       await axios.post('/add',addObj)
-      
+      handleClickSelect()
       setInputValue('')
       inputRef.current.focus()
     }
@@ -51,13 +57,22 @@ export default function Header() {
     setTodoList([...todoList,inputValue])
     const addObj = {addList : `${inputValue}`}
     await axios.post('/add',addObj)
-
+    handleClickSelect()
     setInputValue('')
     inputRef.current.focus()
-
   }
 
+  // 선택 삭제
+  const handleDeleteWhere = async () => {
+    await axios.delete('/deleteWhere')
+    handleClickSelect()
+  }
 
+  // 전체 삭제
+  const handleDeleteAll = async () => {
+    await axios.delete('/deleteAll')
+    handleClickSelect()
+  }
   return (
     <>
       <div className='header'>
@@ -66,13 +81,23 @@ export default function Header() {
           onChange={handleChangeInput} 
           onKeyDown={handleKeyDownInput}
           type="text" ref={inputRef} />
-        <button onClick={handleClickAdd}>추가</button>
-        <button onClick={handleClickSelect}>조회</button>
+        <button className='addBtn' onClick={handleClickAdd}>
+          <FontAwesomeIcon icon={faPlus} />
+        </button>
       </div>
       <main>
         {todoList.map((todos,index) => (
-        <TodoBox key={index} index={index} todoList={todos} todoListArr={todoList} setTodoList={setTodoList}/>
+        <TodoBox key={index} 
+        index={index} todoList={todos} todoListArr={todoList} setTodoList={setTodoList} 
+        checkedList={checkedList} listDbIdx={listDbIdx}
+        setCheckedList={setCheckedList} handleClickSelect={handleClickSelect}
+        />
         ))}
+        <br />
+        <div className='bottomBtn'>
+          <button className='delSelect' onClick={handleDeleteWhere}>선택 삭제</button>
+          <button className='delAll' onClick={handleDeleteAll}>전체 삭제</button>
+        </div>
       </main>
     </>
     

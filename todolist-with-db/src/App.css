@@ -1,23 +1,116 @@
+*{
+  margin:0 auto;
+}
 .App {
   text-align: center;
-  background-color: aquamarine;
+  background-color: #d6d5d5;
   width:100vw;
   height:100vh;
+  margin:0 auto;
+  padding-top: 10px;
+  box-sizing: border-box;
 }
 
+main{
+  padding :10px 0px;
+  position:relative;
+  background-color: #ffffff;
+  width:400px;
+  margin:0 auto;
+  border: 2px solid gray;
+}
 .header{
-  width:100%;
+  width:400px;
   height: 100px;
-  background-color: aqua;
+  background-color: rgb(215, 214, 212);
+  border: 2px solid gray;
+  border-bottom: 0;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+}
+.logo{
+  height:30px;
+  font-size: 20px;
+}
+
+.header>input{
+  width:300px;
+  height:50px;
+  border:none;
+  border-bottom: 1px solid gray;
+  margin-right: 15px;
+  font-size : 20px;
+  border-radius: 8px;
+}
+.addBtn{
+  color:red;
+  width:40px;
+  height:40px;
+  border-radius: 14%;
+  border:0.5px solid gray;
+  background-color: #ffffff;
+}
+.addBtn:hover{
+  background-color: rgb(245, 241, 237);
 }
 
 .todoBox{
-  width:90%;
+  text-align: left;
+  width:300px;
   height: 50px;
-  background-color: bisque;
+  background-color: #ffffff;
   border-bottom: 1px solid gray;
   cursor: pointer;
   margin-bottom: 5px;
   display: inline-block;
+  margin-right: 15px;
+  padding-top: 10px;
+  box-sizing: border-box;
 }
 
+.todoBox:hover{
+  background-color: rgb(245, 241, 237);
+}
+
+.checked{
+  transition:.3s;
+  background-color: rgb(245, 241, 237);
+  color:rgb(216, 220, 223);
+  text-decoration: line-through;
+}
+
+.deleteBtn{
+  width:40px;
+  height: 40px;
+  border-radius: 14%;
+  border:0.5px solid gray;
+  display: inline-block;
+  background-color: #ffffff;
+  color:red;
+  cursor: pointer;
+}
+
+.deleteBtn:hover{
+  background-color: rgb(245, 241, 237);
+}
+
+.bottomBtn{
+  display: flex;
+  justify-content: space-evenly
+}
+
+.delSelect{
+  display: block;
+  border:0.5px solid gray;
+  background-color: #ffffff;
+}
+
+.delAll{
+  display: block;
+  border:0.5px solid gray;
+  background-color: #ffffff;
+}
+
+.delSelect:hover, .delAll:hover{
+  background-color: rgb(245, 241, 237);
+}

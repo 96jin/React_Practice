@@ -9,5 +9,12 @@ insert into todolist (todo) values ('공부하기');
 
 select * from todolist;
 
-delete from todolist
--- 
+delete from todolist where checked = 1;
+
+alter table todolist modify column checked boolean default False;
+
+update todolist set checked = 0 where idx= 0+(
+  select idx from todolist limit 1
+);
+
+select idx from todolist limit 1;

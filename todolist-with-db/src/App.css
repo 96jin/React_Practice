@@ -18,6 +18,7 @@ main{
   width:400px;
   margin:0 auto;
   border: 2px solid gray;
+  overflow: hidden;
 }
 .header{
   width:400px;
@@ -52,6 +53,18 @@ main{
 }
 .addBtn:hover{
   background-color: rgb(245, 241, 237);
+}
+
+.forAnimationDown{
+  height:55px;
+  animation:moveDown 1s forwards;
+  position: relative;
+}
+
+.forAnimationUp{
+  height:0px;
+  animation:moveUp .5s forwards;
+  position: relative;
 }
 
 .todoBox{
@@ -113,4 +126,26 @@ main{
 
 .delSelect:hover, .delAll:hover{
   background-color: rgb(245, 241, 237);
+}
+
+@keyframes moveUp{
+  from{
+    height: 55px;
+    opacity: 1;
+  }
+  to{
+    height:0px;
+    opacity: 0;
+  }
+}
+
+@keyframes moveDown{
+  from{
+    height:0px;
+    opacity: 0;
+  }
+  to{
+    height:55px;
+    opacity: 1;
+  }
 }

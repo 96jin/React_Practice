@@ -13,6 +13,7 @@ export default function Header() {
   const [checkedList, setCheckedList] = useState([])
   const [listDbIdx, setListDbIdx] = useState([])
   const inputRef = useRef()
+  
 
   // 화면에 그리기 위한 기능
   const handleClickSelect = async () => {
@@ -43,7 +44,14 @@ export default function Header() {
       setTodoList([...todoList,inputValue])
       const addObj = {addList : `${inputValue}`}
       await axios.post('/add',addObj)
-      handleClickSelect()
+      // handleClickSelect()
+      const firstValue = await axios.get('/selectAll')
+      const newListDbIdx = firstValue.data.map((list)=>list.idx)
+      const newCheckedList = firstValue.data.map((list)=>list.checked)
+      const newList = firstValue.data.map((list)=>list.todo)
+      setListDbIdx(newListDbIdx)
+      setCheckedList(newCheckedList)
+      setTodoList(newList)
       setInputValue('')
       inputRef.current.focus()
     }
@@ -57,7 +65,7 @@ export default function Header() {
     setTodoList([...todoList,inputValue])
     const addObj = {addList : `${inputValue}`}
     await axios.post('/add',addObj)
-    handleClickSelect()
+    
     setInputValue('')
     inputRef.current.focus()
   }
@@ -87,7 +95,7 @@ export default function Header() {
       </div>
       <main>
         {todoList.map((todos,index) => (
-        <TodoBox key={index} 
+        <TodoBox key={index}
         index={index} todoList={todos} todoListArr={todoList} setTodoList={setTodoList} 
         checkedList={checkedList} listDbIdx={listDbIdx}
         setCheckedList={setCheckedList} handleClickSelect={handleClickSelect}

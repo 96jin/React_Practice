@@ -65,7 +65,13 @@ export default function Header() {
     setTodoList([...todoList,inputValue])
     const addObj = {addList : `${inputValue}`}
     await axios.post('/add',addObj)
-    
+    const firstValue = await axios.get('/selectAll')
+    const newListDbIdx = firstValue.data.map((list)=>list.idx)
+    const newCheckedList = firstValue.data.map((list)=>list.checked)
+    const newList = firstValue.data.map((list)=>list.todo)
+    setListDbIdx(newListDbIdx)
+    setCheckedList(newCheckedList)
+    setTodoList(newList)
     setInputValue('')
     inputRef.current.focus()
   }

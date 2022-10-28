@@ -28,6 +28,12 @@ app.get('/selectAll', (req,res) => {
   })
 })
 
+// app.get('/selectWhere',(req,res) => {
+//   const 
+//   db.query()
+  
+// })
+
 
 app.post('/add', (req,res) => {
   const addList = req.body.addList

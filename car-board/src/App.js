@@ -5,6 +5,9 @@ import Board from './components/Board';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
+document.cookie = "safeCookie1=foo; SameSite=Lax"; 
+document.cookie = "safeCookie2=foo";  
+document.cookie = "crossCookie=bar; SameSite=None; Secure";
 
 function App() {
   const postPerPage = 12
@@ -34,7 +37,7 @@ function App() {
   return ( 
     <div className="App">
       <Header/>
-      <Board postList={postList}/>
+      <Board postList={postList} totalCar={carInfo.length}/>
       <Footer buttonLen={Math.ceil(carInfo.length/postPerPage)}
       pageNum={pageNum} setPageNum={setPageNum}
       />

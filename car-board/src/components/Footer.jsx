@@ -1,10 +1,9 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import './css/footer.css'
 
 export default function Footer({buttonLen,pageNum,setPageNum}) {
-  const btnRef = useRef()
   const btnArr = []
-
+  const [pageNumLength, setPageNumLength] = useState(10)
   let i = 1;
   while(i<=buttonLen){
     btnArr.push(i)
@@ -17,7 +16,7 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
   }
 
   const handleMorePrev = () => {
-    setPageNum(Math.floor(pageNum/10)*10-9)
+    setPageNum(Math.floor(pageNum/pageNumLength)*pageNumLength-(pageNumLength-1))
   }
 
   const handleNext = () => {
@@ -25,14 +24,17 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
   }
 
   const handleMoreNext = () => {
-    setPageNum(Math.floor(pageNum/10)*10+11)
+    setPageNum(Math.floor(pageNum/pageNumLength)*pageNumLength+(pageNumLength+1))
   }
 
+  useEffect(() => {
+    // window 의 너비값 변경 감지
+    window.innerWidth < 540 ? setPageNumLength(3) : setPageNumLength(10)
+  },[pageNum])
   return (
     <div className='footer'>
       <div className='btn-total-box'>
-        <button className='btn-list' onClick={handleMorePrev} disabled={pageNum<=10}
-        
+        <button className='btn-list' onClick={handleMorePrev} disabled={pageNum<=pageNumLength}
         >
           {'<<'}
         </button>
@@ -43,8 +45,8 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
         <div className='btn-list-box'>
         {btnArr.map((num) => {
           return (
-            <button key={num} ref={btnRef} style={{
-              transform:`translateY(-${30 * Math.floor((pageNum-1)/10)}px)`,
+            <button key={num}  style={{
+              transform:`translateY(-${30 * Math.floor((pageNum-1)/pageNumLength)}px)`,
             }}
             className={(pageNum === num) ? 'btn-list clicked':'btn-list'} 
             onClick={()=>setPageNum(num)}

@@ -1,11 +1,8 @@
-*{
-  margin:0 auto;
-}
+
 .App{
   margin:0 auto;
-  width:98%;
   text-align: center;
-  background-color: black;
+  /* background-color: black; */
 }
 /* 
 @media screen and (max-width:1200px){

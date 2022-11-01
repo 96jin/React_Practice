@@ -12,8 +12,8 @@ export default function Header() {
   const [todoList, setTodoList] = useState([])
   const [checkedList, setCheckedList] = useState([])
   const [listDbIdx, setListDbIdx] = useState([])
-  const inputRef = useRef()
   
+  const inputRef = useRef()
 
   // 화면에 그리기 위한 기능
   const handleClickSelect = async () => {
@@ -24,11 +24,15 @@ export default function Header() {
     setTodoList(newList)
     setCheckedList(newCheckedList)
     setListDbIdx(newListDbIdx)
+    console.log(listDbIdx)
   }
   
   // 렌더링 될 때 마다 
   useEffect(()=>{
     handleClickSelect()
+    // axios.get('/selectAll').then(res=>setTodoList(res.data.map(list=>list.todo)))
+
+    inputRef.current.focus()
   },[])
   
   // 키보드 입력, 엔터
@@ -44,16 +48,14 @@ export default function Header() {
       setTodoList([...todoList,inputValue])
       const addObj = {addList : `${inputValue}`}
       await axios.post('/add',addObj)
-      // handleClickSelect()
       const firstValue = await axios.get('/selectAll')
+      const newList = firstValue.data.map((list)=>list.todo)
       const newListDbIdx = firstValue.data.map((list)=>list.idx)
       const newCheckedList = firstValue.data.map((list)=>list.checked)
-      const newList = firstValue.data.map((list)=>list.todo)
-      setListDbIdx(newListDbIdx)
       setCheckedList(newCheckedList)
+      setListDbIdx(newListDbIdx)
       setTodoList(newList)
       setInputValue('')
-      inputRef.current.focus()
     }
   }
 
@@ -66,11 +68,11 @@ export default function Header() {
     const addObj = {addList : `${inputValue}`}
     await axios.post('/add',addObj)
     const firstValue = await axios.get('/selectAll')
+    const newList = firstValue.data.map((list)=>list.todo)
     const newListDbIdx = firstValue.data.map((list)=>list.idx)
     const newCheckedList = firstValue.data.map((list)=>list.checked)
-    const newList = firstValue.data.map((list)=>list.todo)
-    setListDbIdx(newListDbIdx)
     setCheckedList(newCheckedList)
+    setListDbIdx(newListDbIdx)
     setTodoList(newList)
     setInputValue('')
     inputRef.current.focus()
@@ -79,13 +81,25 @@ export default function Header() {
   // 선택 삭제
   const handleDeleteWhere = async () => {
     await axios.delete('/deleteWhere')
-    handleClickSelect()
+    const firstValue = await axios.get('/selectAll')
+    const newList = firstValue.data.map((list)=>list.todo)
+    const newListDbIdx = firstValue.data.map((list)=>list.idx)
+    const newCheckedList = firstValue.data.map((list)=>list.checked)
+    setCheckedList(newCheckedList)
+    setListDbIdx(newListDbIdx)
+    setTodoList(newList)
   }
 
   // 전체 삭제
   const handleDeleteAll = async () => {
     await axios.delete('/deleteAll')
-    handleClickSelect()
+    const firstValue = await axios.get('/selectAll')
+    const newList = firstValue.data.map((list)=>list.todo)
+    const newListDbIdx = firstValue.data.map((list)=>list.idx)
+    const newCheckedList = firstValue.data.map((list)=>list.checked)
+    setCheckedList(newCheckedList)
+    setListDbIdx(newListDbIdx)
+    setTodoList(newList)
   }
   return (
     <>
@@ -103,8 +117,9 @@ export default function Header() {
         {todoList.map((todos,index) => (
         <TodoBox key={index}
         index={index} todoList={todos} todoListArr={todoList} setTodoList={setTodoList} 
-        checkedList={checkedList} listDbIdx={listDbIdx}
+        checkedList={checkedList} listDbIdx={listDbIdx[index]}
         setCheckedList={setCheckedList} handleClickSelect={handleClickSelect}
+        
         />
         ))}
         <br />

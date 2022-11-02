@@ -4,10 +4,24 @@
   text-align: center;
   /* background-color: black; */
 }
-/* 
-@media screen and (max-width:1200px){
-  .App{
-    margin:0 auto;
-    width:98%;
-    text-align: center;
-    /* background-color: black; */
+
+html::-webkit-scrollbar{
+  width:3px;
+  
+  /* 전체 두께 */
+  /* background-color: black; */
+}
+html::-webkit-scrollbar-thumb{
+  /* 현재 부분 색 */
+  background-color: #2f3542;
+}
+html::-webkit-scrollbar-track{
+  /* 나머지 부분 색 */
+  background-color: grey;
+}
+
+@media screen and (max-width:1000px){
+  html::-webkit-scrollbar{
+    width:0;
+  }
+}

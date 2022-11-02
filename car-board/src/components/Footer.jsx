@@ -24,13 +24,20 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
   }
 
   const handleMoreNext = () => {
+    if(buttonLen - pageNum < 9){
+      setPageNum(buttonLen)
+      
+      return
+    }
     setPageNum(Math.floor(pageNum/pageNumLength)*pageNumLength+(pageNumLength+1))
   }
 
   useEffect(() => {
+    window.scrollTo({top:0,left: 0,behavior:'smooth'})
     // window 의 너비값 변경 감지
     window.innerWidth < 540 ? setPageNumLength(3) : setPageNumLength(10)
   },[pageNum])
+
   return (
     <div className='footer'>
       <div className='btn-total-box'>
@@ -49,8 +56,7 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
               transform:`translateY(-${30 * Math.floor((pageNum-1)/pageNumLength)}px)`,
             }}
             className={(pageNum === num) ? 'btn-list clicked':'btn-list'} 
-            onClick={()=>setPageNum(num)}
-            
+            onClick={()=>setPageNum(num)} 
             >
               {num}
             </button>
@@ -61,7 +67,7 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
         >
           {'>'}
         </button>
-        <button onClick={handleMoreNext} className='btn-list' disabled = {pageNum>80}
+        <button onClick={handleMoreNext} className='btn-list' disabled = {pageNum>=buttonLen}
         >
           {'>>'}
         </button>

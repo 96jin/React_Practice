@@ -8,7 +8,7 @@ const db = require('./config/db.js')
 app.use(express.json()) // body-parser 대신 express.json() 사용해도 된다.
 
 app.get('/selectAll',(req,res) => {
-  // console.log('요청')
+  console.log('요청')
   db.query('select * from cars',(err,data) => {
     if(!err){
       // console.log(data)

@@ -1,16 +1,23 @@
 import React, { useRef, useState } from 'react'
-import { Link, } from 'react-router-dom'
+import { Link, useNavigate} from 'react-router-dom'
 import './css/header.css'
 
 export default function Header({setSearchValue,setIsSearch,setPageNum}) {
+  
+  let nav = useNavigate()
+  const handleResetBuyPage = () => {
+    setIsSearch('')
+  }
+
   const [isMenuHide, setIsMenuHide] = useState(true)
   const inputRef = useRef()
   const handleSearch = (e) => {
     e.preventDefault()
     setSearchValue(inputRef.current.value)
-    inputRef.current.value=''
+    // inputRef.current.value=''
     setPageNum(1)
     setIsSearch(true)
+    nav('/buy')
   }
   return (
     <>
@@ -32,7 +39,7 @@ export default function Header({setSearchValue,setIsSearch,setPageNum}) {
         <div className="nav">
           <div className='slide-bar'></div>
           <Link to='/sell'><div className='nav-list'>판매 등록</div></Link>
-          <Link to='/buy'><div className='nav-list'>차 구매</div></Link>
+          <Link onClick={handleResetBuyPage} to='/buy'><div className='nav-list'>차 구매</div></Link>
           <Link to='review'><div className='nav-list'>후기</div></Link>
         </div>
         <div className="search">

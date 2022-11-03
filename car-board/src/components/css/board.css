@@ -10,11 +10,151 @@
   color: #b70f28;
 }
 .left{
-  background-color: cadetblue;
+  /* background-color: cadetblue; */
   min-width: 260px;
-  display:flex;
-  flex-direction: column;
-  justify-content: space-around;
+  height:700px;
+  position: sticky;
+  top:20px;
+}
+.left-title{
+  font-size: 0.5rem;
+  background-color: #b70f28;
+  color: white;
+  border-radius: 10px;
+  width:96%;
+  margin: 0 auto;
+  cursor:pointer;
+}
+.left-title>h1{
+  /* background-color: #2f3542; */
+  padding:5px 0;
+}
+.easy-search-box{
+  /* background-color: #b70f28; */
+  height:0px;
+  overflow: hidden;
+  /* opacity: 0.5; */
+  transition: .4s;
+}
+.easy-search-box-show{
+  /* background-color: #b70f28; */
+  /* min-height:120px; */
+  height:90%;
+  transition: .4s;
+  overflow: scroll;
+  /* border-radius: 20px; */
+}
+.easy-search-box-show::-webkit-scrollbar{
+  width:0px;
+}
+
+.search-box-style{
+  height:40px;
+  font-weight: 700;
+  /* background-color: aquamarine; */
+  cursor: pointer;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  text-align: left;
+  border-bottom:1px solid black;
+}
+.maker-search{
+  /* background-color: violet; */
+  height:60px;
+  overflow: hidden;
+  transition: .2s;
+  width:94%;
+  margin:0 auto;
+}
+.maker-search-show{
+  /* background-color: violet; */
+  height:300px;
+  transition: .2s;
+  font-weight: 700;
+  width:94%;
+  margin:0 auto;
+}
+.maker-wrap{
+  font-weight: 400;
+  cursor:pointer;
+  margin-left: 5px;
+  height:250px;
+  overflow-y: scroll;
+  position: relative;
+  transition: .2s;
+  text-align: left;
+}
+.maker-wrap .checked{
+  background-color: #2f3542;
+  color:white;
+  border-radius: 0px;
+  width:90%;
+}
+.maker-wrap::-webkit-scrollbar{
+  width:2px;
+  background-color: #2f3542;
+}
+.maker-wrap::-webkit-scrollbar-thumb{
+  background-color: #b70f28;
+}
+.is-hidden{
+  visibility: hidden;
+  height:0px;
+}
+
+.distance-search{
+  height:60px;
+  overflow: hidden;
+  transition:.2s;
+  width:94%;
+  margin:0 auto;
+}
+.distance-search-show{
+  height:150px;
+  transition:.2s;
+  width:94%;
+  margin:0 auto;
+}
+.distance-wrap{
+  /* background-color: #b70f28; */
+  height: 100%;
+}
+
+.year-search{
+  height:60px;
+  overflow: hidden;
+  transition:.2s;
+  width:94%;
+  margin:0 auto;
+}
+.year-search-show{
+  height:150px;
+  transition:.2s;
+  width:94%;
+  margin:0 auto;
+}
+.year-wrap{
+  /* background-color: yellow; */
+  height:100%;
+}
+
+.price-search{
+  height:60px;
+  overflow: hidden;
+  transition:.2s;
+  width:94%;
+  margin:0 auto;
+}
+.price-search-show{
+  height:150px;
+  transition:.2s;
+  overflow: hidden;
+  width:94%;
+  margin:0 auto;
+}
+.price-wrap{
+  /* background-color: blueviolet; */
+  height:100%;
 }
 
 .right-up{

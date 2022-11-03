@@ -72,10 +72,11 @@ function App() {
       easySearchMaker.maker.includes(cars.car_maker)
       ))
     postList = newPostList.slice(firstIndex, lastIndex)
-    console.log(newPostList)
+    // console.log(newPostList)
   }else{
     newPostList = carInfo
   }
+  
 
   if (isSearch){
     newPostList = newPostList.filter(cars=>(
@@ -84,15 +85,9 @@ function App() {
       )))
       postList = newPostList.slice(firstIndex, lastIndex)
     }  
-  
-  // if (isSearch){
-  //   newPostList = carInfo.filter(cars=>(
-  //     cars.car_name.toUpperCase().includes(searchValue.toUpperCase()) || 
-  //     cars.car_maker.toUpperCase().includes(searchValue.toUpperCase()
-  //     )))
-  //     postList = newPostList.slice(firstIndex, lastIndex)
-  //     console.log(newPostList)
-  //   }
+  useEffect(() => {
+    setPageNum(1)
+  },[easySearchMaker])
 
   // const sortByEasySearch  = (sort) => {
   //   console.log(easySearchMaker[sort])
@@ -117,13 +112,14 @@ function App() {
         setIsSearch={setIsSearch} 
         setSearchValue={setSearchValue} 
         setPageNum={setPageNum}
+        setEasySearchMaker={setEasySearchMaker}
         />
         <Routes>
           <Route exact path='/' element={<Home/>}/>
           <Route 
             path='/buy/*'
             element={
-            <Board postList={postList} totalCar={newPostList.length} buttonLen={Math.ceil((isSearch ? newPostList.length : carInfo.length)/postPerPage)}
+            <Board postList={postList} totalCar={newPostList.length} buttonLen={Math.ceil(newPostList.length/postPerPage)}
             pageNum={pageNum} setPageNum={setPageNum} carMaker={carMaker} setEasySearchMaker={setEasySearchMaker} easySearchMaker={easySearchMaker}/>}
             />
             <Route path='/sell' element={<SellPage/>}/>

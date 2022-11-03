@@ -39,9 +39,7 @@ export default function Board({postList,totalCar,buttonLen,pageNum,setPageNum,ca
         maker :easySearchMaker.maker.filter((newmaker)=>newmaker !== e.target.textContent)})
     }
   }
-  // console.log('객체')
-  // console.log(easySearchMaker)
-  // console.log(carMaker)
+
   return ( 
     <>
       <main className='board'>

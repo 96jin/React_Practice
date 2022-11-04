@@ -31,7 +31,7 @@ li:hover{
   height:700px;
   position: sticky;
   top:20px;
-  padding-left: 2%;
+  padding-left: 3%;
   padding-top: 10px;
   box-sizing: border-box;
 }
@@ -107,7 +107,7 @@ li:hover{
   /* margin-left: 5px; */
   padding-left: 5px;
   box-sizing: border-box;
-  height:250px;
+  height:220px;
   overflow-y: scroll;
   position: relative;
   transition: .2s;
@@ -152,14 +152,64 @@ li:hover{
   margin:0 auto;
 }
 .distance-search-show{
-  height:150px;
+  height:140px;
   transition:.2s;
   width:94%;
   margin:0 auto;
+  overflow: hidden;
 }
 .distance-wrap{
   background-color: #f9fafb;
   height: 100px;
+  /* background-color: #9ea7aa; */
+}
+.dis-select-wrap{
+  /* background-color: #2f3542; */
+  width:100%;
+  height:95%;
+  padding-right: 5px;
+  box-sizing: border-box;
+}
+.left select{
+  /* background-color: #a70e25; */
+  border:none;
+  border-radius: 8px;
+  width:100px;
+  height:30px;
+  text-align: left;
+  margin-top: 10px;
+  font-size: 14px;
+  transition: .2s;
+  border:1px solid #2f3542;
+}
+.left select:hover{
+  cursor: pointer;
+  border:1px solid #2f3542;
+}
+
+.left select option:hover{
+  background-color: #9ea7aa;
+}
+.left select::-webkit-scrollbar{
+  width:0px;
+}
+.left select:focus{
+  outline:1px solid black;
+}
+.left select option{
+  background-color: #f9fafb;
+  transition: .2s;
+}
+
+.dis-select-wrap span{
+  margin:0 8px;
+  /* background-color: #16171d; */
+}
+.price-wrap span{
+  margin:0 8px;
+}
+.year-wrap span{
+  margin:0 8px;
 }
 
 .year-search{
@@ -174,10 +224,14 @@ li:hover{
   transition:.2s;
   width:94%;
   margin:0 auto;
+  overflow: hidden;
 }
 .year-wrap{
   background-color: #f9fafb;
+  /* background-color: #2f3542; */
   height:100px;
+  padding-right: 5px;
+  box-sizing: border-box;
 }
 
 .price-search{
@@ -197,6 +251,8 @@ li:hover{
 .price-wrap{
   background-color: #f9fafb;
   height:100px;
+  padding-right: 5px;
+  box-sizing: border-box;
 }
 
 .right-up{

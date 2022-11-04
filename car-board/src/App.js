@@ -56,7 +56,7 @@ function App() {
   useEffect(() => {
     axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
   },[])
-  
+
   // 한 페이지에 띄울 인덱스 추출
   const firstIndex = (pageNum-1)*postPerPage
   const lastIndex = firstIndex + postPerPage

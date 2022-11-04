@@ -20,6 +20,7 @@ app.get('/selectAll',(req,res) => {
   })
 })
 
+
 app.listen(PORT , ()=>{
   console.log(`Server Connected : ${PORT}`)
 })

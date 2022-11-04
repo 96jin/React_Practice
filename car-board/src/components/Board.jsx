@@ -203,7 +203,7 @@ export default function Board({
               <div className='search-box-style' onClick={()=>setIsShowDistance(!isShowDistance)}>주행 거리</div>
               <div className='distance-wrap' ref={el=>searchRef.current[1]=el}>
                 <div className='dis-select-wrap'>
-                  <select name="minDisName" id="minDisId" onChange={(e)=>setMinDis(e)} ref={el=>disInputRef.current[0]=el}>
+                  <select className="search-select" name="minDisName" id="minDisId" onChange={(e)=>setMinDis(e)} ref={el=>disInputRef.current[0]=el}>
                     <option value="0">
                       최소
                     </option>
@@ -211,8 +211,8 @@ export default function Board({
                       <option key={idx+'mindis'} value={dis}>{dis.toLocaleString('ko-KR')}km</option>
                     ))}
                   </select>
-                  {" ~ "}
-                  <select name="MaxDisName" id="MaxDisId" onChange={(e)=>setMaxDis(e)} ref={el=>disInputRef.current[1]=el}>
+                  <span>~</span>
+                  <select className="search-select" name="MaxDisName" id="MaxDisId" onChange={(e)=>setMaxDis(e)} ref={el=>disInputRef.current[1]=el}>
                     <option value={disList[disList.length-1]}>최대</option>
                     {disList.map((dis, idx)=>(
                       <option key={idx+'maxdis'} value={dis}>{dis.toLocaleString('ko-KR')}km</option>
@@ -224,7 +224,7 @@ export default function Board({
             <div className={!isShowEasySearch ? 'year-search' : (!isShowYear ? 'year-search' : 'year-search-show')}>
               <div className='search-box-style' onClick={()=>setIsShowYear(!isShowYear)}>년식</div>
               <div className='year-wrap' ref={el=>searchRef.current[2]=el}>
-                <select name="minYearName" id="minYearId" onChange={(e)=>setMinYear(e)} ref={el=>yearInputRef.current[0]=el}>
+                <select className="search-select" name="minYearName" id="minYearId" onChange={(e)=>setMinYear(e)} ref={el=>yearInputRef.current[0]=el}>
                   <option value="0">
                     최소
                   </option>
@@ -232,8 +232,8 @@ export default function Board({
                     <option key={idx+'minYear'} value={year}>{year}년</option>
                   ))}
                 </select>
-                {" ~ "}
-                <select name="MaxYearName" id="MaxYearId" onChange={(e)=>setMaxYear(e)} ref={el=>yearInputRef.current[1]=el}>
+                <span>~</span>
+                <select className="search-select" name="MaxYearName" id="MaxYearId" onChange={(e)=>setMaxYear(e)} ref={el=>yearInputRef.current[1]=el}>
                   <option value={yearList[yearList.length-1]}>최대</option>
                   {yearList.map((year, idx)=>(
                     <option key={idx+'maxyear'} value={year}>{year}년</option>
@@ -245,7 +245,7 @@ export default function Board({
               <div className='search-box-style' onClick={()=>setIsShowPrice(!isShowPrice)}>가격</div>
               <div className='price-wrap' ref={el=>searchRef.current[3]=el}>
                 <div className='price-select-wrap'>
-                  <select name="minPriceName" id="minPriceId" onChange={(e)=>setMinPrice(e)} ref={el=>priceInputRef.current[0]=el}>
+                  <select className="search-select" name="minPriceName" id="minPriceId" onChange={(e)=>setMinPrice(e)} ref={el=>priceInputRef.current[0]=el}>
                     <option value="0">
                       최소
                     </option>
@@ -253,8 +253,8 @@ export default function Board({
                       <option key={idx+'minprc'} value={price}>{price.toLocaleString('ko-KR')}만원</option>
                     ))}
                   </select>
-                  {" ~ "}
-                  <select name="maxPriceName" id="maxPriceId" onChange={(e)=>setMaxPrice(e)} ref={el=>priceInputRef.current[1]=el}>
+                  <span>~</span>
+                  <select className="search-select" name="maxPriceName" id="maxPriceId" onChange={(e)=>setMaxPrice(e)} ref={el=>priceInputRef.current[1]=el}>
                     <option value={priceList[priceList.length-1]}>
                       최대
                     </option>
@@ -280,7 +280,7 @@ export default function Board({
                 <div className="car-info">
                   <span>{data.car_maker +' '}{data.car_name}</span>
                   <span style={{fontWeight:'bold'}}>{data.car_price.toLocaleString('ko-KR')}만원</span>
-                  <span style={{fontSize:13,color:'#54555a'}}>{data.car_model_year.slice(0,2)}년 {data.car_model_year.slice(5)}월식 · {data.distance.toLocaleString('ko-KR')}km</span>
+                  <span style={{fontSize:13,color:'#54555a'}}>{data.car_model_year.slice(2,4)}년 {data.car_model_year.slice(5)}월식 · {data.distance.toLocaleString('ko-KR')}km</span>
                 </div>
               </div>
             ))}

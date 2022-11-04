@@ -1,21 +1,34 @@
+/** eslint-disable */
 import React, { useEffect, useRef, useState } from 'react'
 import './css/board.css'
 import Footer from './Footer';
 import { Link, } from 'react-router-dom';
 
-export default function Board({postList,totalCar,buttonLen,pageNum,setPageNum,carMaker,setEasySearchMaker,easySearchMaker}) {
+export default function Board({
+  postList,totalCar,buttonLen,pageNum,setPageNum,carMaker,setEasySearchSort,easySearchSort,disList,priceList,yearList
+}) {
   const searchRef = useRef([])
   const rightDownRef = useRef()
-  const [isShowEasySearch, setIsShowEasySearch] = useState(false)
+  const disInputRef = useRef([])
+  const priceInputRef = useRef([])
+  const yearInputRef = useRef([])
+  
+  // 간편메뉴 조절 관련들
+  const [isShowEasySearch, setIsShowEasySearch] = useState(true) // 원래 false였다가 고침
   const [isShowMaker, setIsShowMaker] = useState(false)
   const [isShowDistance, setIsShowDistance] = useState(false)
   const [isShowYear, setIsShowYear] = useState(false)
   const [isShowPrice, setIsShowPrice] = useState(false)
 
+  // const [minDistance, setMinDistance] = useState(minDis)
+  // const [maxDistance, setMaxDistance] = useState(maxDis)
+
   useEffect(() => {
+    // 모바일 화면때 페이지 전환시 스크롤 위로 초기화
     rightDownRef.current.scrollTop=0
   },[pageNum])
 
+  // 간편 검색 컨트롤
   const easyMenuCont = () => {
     function checkFlag(isState, setState){
       isState && setState(!isState)
@@ -27,17 +40,142 @@ export default function Board({postList,totalCar,buttonLen,pageNum,setPageNum,ca
     setIsShowEasySearch(!isShowEasySearch)
   }
 
+  // 제조사 목록 체크한것들 목록 업데이트
   const checkMaker = (e) => {
-    // console.log(e.target.textContent)
-    // console.log(easySearchMaker.maker.indexOf(e.target.textContent))
-    if(easySearchMaker.maker.indexOf(e.target.textContent) === -1){
-      setEasySearchMaker({...easySearchMaker,
-        maker:[...easySearchMaker.maker, e.target.textContent]})
+    if(easySearchSort.maker.indexOf(e.target.textContent) === -1){
+      setEasySearchSort({...easySearchSort,
+        maker:[...easySearchSort.maker, e.target.textContent]})
     }
     else{
-      setEasySearchMaker({...easySearchMaker,
-        maker :easySearchMaker.maker.filter((newmaker)=>newmaker !== e.target.textContent)})
+      setEasySearchSort({...easySearchSort,
+        maker :easySearchSort.maker.filter((newmaker)=>newmaker !== e.target.textContent)})
     }
+  }
+
+  // 거리 최솟값 구하기
+  const setMinDis = (e) => {
+    // console.log(e.target.value)
+    if(easySearchSort.dis[1]){
+      setEasySearchSort({...easySearchSort,
+      dis:[e.target.value, easySearchSort.dis[1]].sort((a,b)=>(a-b))})
+      if(parseInt(e.target.value) > parseInt(disInputRef.current[1].value)){
+        [disInputRef.current[0].value , disInputRef.current[1].value] =
+        [disInputRef.current[1].value , disInputRef.current[0].value]
+      }
+    }
+    else{
+      setEasySearchSort({...easySearchSort,
+      dis:[e.target.value, disList[disList.length-1]]})
+    }
+  }
+
+  // 거리 최댓값 구하기
+  const setMaxDis = (e) => {
+    if(easySearchSort.dis[0]){
+      (
+        easySearchSort.dis[0] === -1 ? 
+        setEasySearchSort({...easySearchSort,
+        dis:[easySearchSort.dis[0], e.target.value]}) :
+        setEasySearchSort({...easySearchSort,
+        dis:[parseInt(easySearchSort.dis[0]), parseInt(e.target.value)].sort((a,b)=>(a-b))})
+      )
+      if((e.target.value) < disInputRef.current[0].value){
+        [disInputRef.current[0].value , disInputRef.current[1].value] =
+        [disInputRef.current[1].value , disInputRef.current[0].value]
+      }
+      console.log(easySearchSort)
+    }
+    else{
+      setEasySearchSort({...easySearchSort,
+      dis:[-1, e.target.value]})
+    }
+  }
+
+  // 금액 최솟값
+  const setMinPrice = (e) => {
+    console.log('최솟값 : '+e.target)
+    console.log(parseInt(e.target.value) > parseInt(priceInputRef.current[1].value))
+    if(easySearchSort.price[1]){
+      setEasySearchSort({...easySearchSort,
+      price:[parseInt(e.target.value), parseInt(easySearchSort.price[1])].sort((a,b)=>(a-b))})
+      if(parseInt(e.target.value) > parseInt(priceInputRef.current[1].value)){
+        [priceInputRef.current[0].value , priceInputRef.current[1].value] =
+        [priceInputRef.current[1].value , priceInputRef.current[0].value]
+      }
+    }
+    else{
+      setEasySearchSort({...easySearchSort,
+      price:[e.target.value, priceList[priceList.length-1]]})
+    }
+    console.log('최솟값 누를때 배열 :'+easySearchSort.price)
+  }
+
+  
+  // 금액 최댓값 구하기
+  const setMaxPrice = (e) => {
+    console.log('최댓값 : '+e.target.value)
+    console.log(parseInt(e.target.value) < parseInt(priceInputRef.current[0].value))
+    if(easySearchSort.price[0]){
+      (
+        easySearchSort.price[0] === -1 ? 
+        setEasySearchSort({...easySearchSort,
+        price:[easySearchSort.price[0], e.target.value]}) :
+        setEasySearchSort({...easySearchSort,
+        price:[parseInt(easySearchSort.price[0]), parseInt(e.target.value)].sort((a,b)=>(a-b))})
+      )
+      if(parseInt(e.target.value) < parseInt(priceInputRef.current[0].value)){
+        [priceInputRef.current[0].value , priceInputRef.current[1].value] =
+        [priceInputRef.current[1].value , priceInputRef.current[0].value]
+      }
+    }
+    else{
+      setEasySearchSort({...easySearchSort,
+      price:[-1, e.target.value]})
+    }
+    console.log('최댓값 떄의 배열 '+easySearchSort.price)
+  }
+
+  // 년도 최솟값
+  const setMinYear = (e) => {
+    console.log('최솟값 : '+e.target)
+    console.log(parseInt(e.target.value) > parseInt(yearInputRef.current[1].value))
+    if(easySearchSort.year[1]){
+      setEasySearchSort({...easySearchSort,
+      year:[parseInt(e.target.value), parseInt(easySearchSort.year[1])].sort((a,b)=>(a-b))})
+      if(parseInt(e.target.value) > parseInt(yearInputRef.current[1].value)){
+        [yearInputRef.current[0].value , yearInputRef.current[1].value] =
+        [yearInputRef.current[1].value , yearInputRef.current[0].value]
+      }
+    }
+    else{
+      setEasySearchSort({...easySearchSort,
+      year:[e.target.value, yearList[yearList.length-1]]})
+    }
+    console.log('최솟값 누를때 배열 :'+easySearchSort.year)
+  }
+
+  // 년도 최댓값 구하기
+  const setMaxYear = (e) => {
+    console.log('최댓값 : '+e.target.value)
+    console.log(parseInt(e.target.value) < parseInt(yearInputRef.current[0].value))
+    if(easySearchSort.year[0]){
+      (
+        easySearchSort.year[0] === -1 ? 
+        setEasySearchSort({...easySearchSort,
+        year:[easySearchSort.year[0], e.target.value]}) :
+        setEasySearchSort({...easySearchSort,
+        year:[parseInt(easySearchSort.year[0]), parseInt(e.target.value)].sort((a,b)=>(a-b))})
+      )
+      if(parseInt(e.target.value) < parseInt(yearInputRef.current[0].value)){
+        [yearInputRef.current[0].value , yearInputRef.current[1].value] =
+        [yearInputRef.current[1].value , yearInputRef.current[0].value]
+      }
+    }
+    else{
+      setEasySearchSort({...easySearchSort,
+      price:[-1, e.target.value]})
+    }
+    console.log('최댓값 떄의 배열 '+easySearchSort.price)
   }
 
   return ( 
@@ -54,7 +192,7 @@ export default function Board({postList,totalCar,buttonLen,pageNum,setPageNum,ca
                   ref={el=>searchRef.current[0]=el}>
                   {carMaker.map((maker,i)=>(
                 <div key={i} onClick={(e)=>checkMaker(e)}
-                  className = {(easySearchMaker.maker.indexOf(maker)>-1) ? 'checked' : ''}
+                  className = {(easySearchSort.maker.indexOf(maker)>-1) ? 'checked' : ''}
                 >
                   {maker}
                 </div>
@@ -64,22 +202,67 @@ export default function Board({postList,totalCar,buttonLen,pageNum,setPageNum,ca
             <div className={!isShowEasySearch ? 'distance-search' : (!isShowDistance ? 'distance-search' : 'distance-search-show')}>
               <div className='search-box-style' onClick={()=>setIsShowDistance(!isShowDistance)}>주행 거리</div>
               <div className='distance-wrap' ref={el=>searchRef.current[1]=el}>
-                <input type="number" min="0" step="1000" placeholder='최소'/>
-                <input type="number" step="1000" placeholder='최대'/>
+                <div className='dis-select-wrap'>
+                  <select name="minDisName" id="minDisId" onChange={(e)=>setMinDis(e)} ref={el=>disInputRef.current[0]=el}>
+                    <option value="0">
+                      최소
+                    </option>
+                    {disList.map((dis, idx)=>(
+                      <option key={idx+'mindis'} value={dis}>{dis.toLocaleString('ko-KR')}km</option>
+                    ))}
+                  </select>
+                  {" ~ "}
+                  <select name="MaxDisName" id="MaxDisId" onChange={(e)=>setMaxDis(e)} ref={el=>disInputRef.current[1]=el}>
+                    <option value={disList[disList.length-1]}>최대</option>
+                    {disList.map((dis, idx)=>(
+                      <option key={idx+'maxdis'} value={dis}>{dis.toLocaleString('ko-KR')}km</option>
+                    ))}
+                  </select>                  
+                </div>
               </div>            
             </div>
             <div className={!isShowEasySearch ? 'year-search' : (!isShowYear ? 'year-search' : 'year-search-show')}>
               <div className='search-box-style' onClick={()=>setIsShowYear(!isShowYear)}>년식</div>
               <div className='year-wrap' ref={el=>searchRef.current[2]=el}>
-                <input type="number" min="0" step="1000" placeholder='최소'/>
-                <input type="number" step="1000" placeholder='최대'/>
+                <select name="minYearName" id="minYearId" onChange={(e)=>setMinYear(e)} ref={el=>yearInputRef.current[0]=el}>
+                  <option value="0">
+                    최소
+                  </option>
+                  {yearList.map((year, idx)=>(
+                    <option key={idx+'minYear'} value={year}>{year}년</option>
+                  ))}
+                </select>
+                {" ~ "}
+                <select name="MaxYearName" id="MaxYearId" onChange={(e)=>setMaxYear(e)} ref={el=>yearInputRef.current[1]=el}>
+                  <option value={yearList[yearList.length-1]}>최대</option>
+                  {yearList.map((year, idx)=>(
+                    <option key={idx+'maxyear'} value={year}>{year}년</option>
+                  ))}
+                </select> 
               </div>
             </div>
             <div className={!isShowEasySearch ? 'price-search' : (!isShowPrice ? 'price-search' : 'price-search-show')}>
               <div className='search-box-style' onClick={()=>setIsShowPrice(!isShowPrice)}>가격</div>
               <div className='price-wrap' ref={el=>searchRef.current[3]=el}>
-                <input type="number" min="0" step="1000" placeholder='최소'/>
-                <input type="number" step="1000" placeholder='최대'/>
+                <div className='price-select-wrap'>
+                  <select name="minPriceName" id="minPriceId" onChange={(e)=>setMinPrice(e)} ref={el=>priceInputRef.current[0]=el}>
+                    <option value="0">
+                      최소
+                    </option>
+                    {priceList.map((price, idx)=>(
+                      <option key={idx+'minprc'} value={price}>{price.toLocaleString('ko-KR')}만원</option>
+                    ))}
+                  </select>
+                  {" ~ "}
+                  <select name="maxPriceName" id="maxPriceId" onChange={(e)=>setMaxPrice(e)} ref={el=>priceInputRef.current[1]=el}>
+                    <option value={priceList[priceList.length-1]}>
+                      최대
+                    </option>
+                    {priceList.map((price, idx)=>(
+                      <option key={idx+'maxprc'} value={price}>{price.toLocaleString('ko-KR')}만원</option>
+                    ))}
+                  </select>                  
+                </div>
               </div>
             </div>
           </div>

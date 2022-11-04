@@ -41,11 +41,17 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
   return (
     <div className='footer'>
       <div className='btn-total-box'>
-        <button className='btn-list' onClick={handleMorePrev} disabled={pageNum<=pageNumLength}
+        <button className='btn-list' onClick={handleMorePrev} disabled={pageNum<=pageNumLength} 
+        style={{
+          cursor:(pageNum<=pageNumLength) ? 'default' : undefined
+        }}
         >
           {'<<'}
         </button>
         <button className='btn-list' onClick={handlePrev} disabled={pageNum === 1}
+        style={{
+          cursor:(pageNum === 1 ? 'default' : undefined )
+        }}
         >
           {'<'}
         </button>
@@ -64,10 +70,16 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
         })}
         </div>
         <button className='btn-list' onClick={handleNext} disabled={pageNum === buttonLen} 
+        style={{
+          cursor : (pageNum === buttonLen) ? 'default' : undefined
+        }}
         >
           {'>'}
         </button>
         <button onClick={handleMoreNext} className='btn-list' disabled = {pageNum>=buttonLen}
+        style={{
+          cursor : (pageNum >= buttonLen) ? 'default' : undefined
+        }}
         >
           {'>>'}
         </button>

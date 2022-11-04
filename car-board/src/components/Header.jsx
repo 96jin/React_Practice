@@ -1,21 +1,56 @@
 import React, { useRef, useState } from 'react'
-import { Link, useNavigate} from 'react-router-dom'
+import { Link, useLocation, useNavigate} from 'react-router-dom'
 import './css/header.css'
 
-export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySearchMaker}) {
+export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySearchSort}) {
   const divBarRef = useRef([])
   const navListRef = useRef()
   let nav = useNavigate()
-  // 페이지 이동시 buy 페이지 초기화
+  let location = useLocation()
+
+  // 슬라이드 바 이동
+  const firstPageSlideBar = () => {
+    // console.log(location.pathname)
+    switch(location.pathname){
+      case '/' : handleSlideBar()
+        break;
+      case '/sell' : handleSlideBar(0)
+        break;
+      case '/buy' : handleSlideBar(1)
+        break;
+      case '/review' : handleSlideBar(2)
+        break;
+      default:
+    }
+  }
+   // 메뉴 언더바
+  const handleSlideBar = (i) => {
+    divBarRef.current.forEach((current,idx)=>{
+      // console.log(current)
+      // console.log(idx)
+      if(i===idx){
+        // console.log(current)
+        current.style.width = '100%'
+      }
+      else{
+        current.style.width ='0px'
+      }
+    })
+  }
+  firstPageSlideBar()
+
+  // 다른 페이지 이동했다가 다시 buy 페이지 올 때 초기화
   const handleResetBuyPage = () => {
     inputRef.current.value=''
-    setEasySearchMaker({
-      maker:[],dis:[],price:[],year:[]})
+    // 다른 페이지 이동했다가 다시
+    setEasySearchSort({
+      maker:[],dis:[null,null],price:[null,null],year:[null,null]})
     setIsSearch('')
-    handleSlideBar(1)
   }
   
+  // 모바일 버전 nav 숨기기
   const [isMenuHide, setIsMenuHide] = useState(true)
+
   const inputRef = useRef()
   // 검색기능 누르면
   const handleSearch = (e) => {
@@ -27,21 +62,8 @@ export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySea
     nav('/buy')
   }
 
-  // 메뉴 언더바
-  const handleSlideBar = (i) => {
-    divBarRef.current.forEach((current,idx)=>{
-      console.log(current)
-      console.log(idx)
-      if(i===idx){
-        console.log(current)
-        current.style.width = '100%'
-      }
-      else{
-        current.style.width ='0px'
-      }
-    })
-  }
-  // handleSlideBar(1)
+  
+ 
 
   return (
     <>
@@ -59,14 +81,16 @@ export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySea
       
       <div className='header'>
         <div className="logo">
-          <Link to="/" onClick={()=>handleSlideBar()}>
+          <Link to="/"
+            // onClick={()=>handleSlideBar()}
+            >
             <img src="/img/logo3.png" alt="logo" />
           </Link>
         </div>
         <div className="nav">
           <Link to='/sell'>
             <div className='nav-list' ref={navListRef}
-            onClick={()=>handleSlideBar(0)}
+            // onClick={()=>handleSlideBar(0)}
             >
             판매 등록
               <div ref={(el)=>divBarRef.current[0]=el}></div>
@@ -81,7 +105,7 @@ export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySea
           </Link>
           <Link to='review'>
             <div className='nav-list'
-            onClick={()=>handleSlideBar(2)}
+            // onClick={()=>handleSlideBar(2)}
             >
             후기
             <div ref={(el)=>divBarRef.current[2]=el}></div>

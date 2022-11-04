@@ -7,6 +7,7 @@ import {BrowserRouter, Routes, Route, } from 'react-router-dom'
 import Home from './components/Home';
 import SellPage from './components/SellPage';
 import Review from './components/Review';
+import searchSort from './hooks&functions/searchSort';
 
 
 function App() {
@@ -45,65 +46,53 @@ function App() {
   const postPerPage = 12
   const currentPageNum = 1
 
-  // const [postList, setPostList] = useState([])
   const [carInfo, setCarInfo] = useState([])
   const [pageNum , setPageNum] = useState(currentPageNum)
   const [isSearch, setIsSearch] = useState(false)
   const [searchValue, setSearchValue] = useState('')
-  const [easySearchMaker, setEasySearchMaker] = useState({
-    maker:[],dis:[],price:[],year:[]})
+  const [easySearchSort, setEasySearchSort] = useState({
+    maker:[],dis:[null,null],price:[null,null],year:[null,null]})
 
   useEffect(() => {
     axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
   },[])
-
+  
+  // 한 페이지에 띄울 인덱스 추출
   const firstIndex = (pageNum-1)*postPerPage
   const lastIndex = firstIndex + postPerPage
-  const copyCarList = [...carInfo]
   
-  // 차 종류 중복 제거
-  const carMaker = [...new Set(copyCarList.map((cars)=>(cars.car_maker)))]
-  
-  let postList = copyCarList.slice(firstIndex , lastIndex)
-  let newPostList
-
-  if(easySearchMaker.maker.length>=1){
-    newPostList = carInfo.filter((cars)=>(
-      easySearchMaker.maker.includes(cars.car_maker)
-      ))
-    postList = newPostList.slice(firstIndex, lastIndex)
-    // console.log(newPostList)
-  }else{
-    newPostList = carInfo
+  // 차 주행거리, 가격 최대 최소 값 구하기
+  const carMinMaxInfo = (whatYouWantOnlyNum,unit) => {
+    let info = copyCarList.map((cars)=>Number(cars[whatYouWantOnlyNum]))
+    let max = Math.ceil(info.sort((a,b)=>(a-b))[info.length-1]/unit)*unit
+    const minmaxList = []
+    // console.log(min,max)
+    for(let i = 1 ; i<=Number(max/(unit)) ; i ++){
+      minmaxList.push(i*unit)
+    }
+    return minmaxList
   }
-  
 
-  if (isSearch){
-    newPostList = newPostList.filter(cars=>(
-      cars.car_name.toUpperCase().includes(searchValue.toUpperCase()) || 
-      cars.car_maker.toUpperCase().includes(searchValue.toUpperCase()
-      )))
-      postList = newPostList.slice(firstIndex, lastIndex)
-    }  
+  // 차 종류 중복 제거
+  const copyCarList = [...carInfo]
+  const carMaker = [...new Set(copyCarList.map((cars)=>(cars.car_maker)))]
+  // const yearList = [...new Set(copyCarList.map((cars)=>(cars.car_model_year)).map((year)=>(year.slice(0,4))))]
+  const yearList = []
+  for(let y = 2010 ; y<=new Date().getFullYear() ; y++){
+    yearList.push(y)
+  }
+  console.log(yearList, new Date().getFullYear())
+  
+  let disList = carMinMaxInfo('distance',10000)
+  let priceList = carMinMaxInfo('car_price', 1000)
+  
+  // postList : 한 페이지에 나타낼 정보들 추출
+  // newPostList : 전체 정보중에서 선택한 조건들을 골라서 추출 후 postList 에 전달
+  let [postList, newPostList] = searchSort(easySearchSort,carInfo,firstIndex,lastIndex,isSearch,searchValue)
+  
   useEffect(() => {
     setPageNum(1)
-  },[easySearchMaker])
-
-  // const sortByEasySearch  = (sort) => {
-  //   console.log(easySearchMaker[sort])
-  //   if (easySearchMaker.sort){
-  //     newPostList = carInfo.filter(cars=>(
-  //       cars.car_name.toUpperCase().includes(searchValue.toUpperCase()) || 
-  //       cars.car_maker.toUpperCase().includes(searchValue.toUpperCase()
-  //       )))
-  //     newPostList = newPostList.filter((maker)=>easySearchMaker.sort.maker.filter((setMaker)=>setMaker===maker))
-  //     console.log(postList)
-  //     postList = newPostList.slice(firstIndex, lastIndex)
-  // }}
-  // sortByEasySearch('maker')
-  
-
-  // console.log(easySearchMaker['maker'])
+  },[easySearchSort])
 
   return ( 
     <BrowserRouter>
@@ -112,7 +101,7 @@ function App() {
         setIsSearch={setIsSearch} 
         setSearchValue={setSearchValue} 
         setPageNum={setPageNum}
-        setEasySearchMaker={setEasySearchMaker}
+        setEasySearchSort={setEasySearchSort}
         />
         <Routes>
           <Route exact path='/' element={<Home/>}/>
@@ -120,7 +109,9 @@ function App() {
             path='/buy/*'
             element={
             <Board postList={postList} totalCar={newPostList.length} buttonLen={Math.ceil(newPostList.length/postPerPage)}
-            pageNum={pageNum} setPageNum={setPageNum} carMaker={carMaker} setEasySearchMaker={setEasySearchMaker} easySearchMaker={easySearchMaker}/>}
+            pageNum={pageNum} setPageNum={setPageNum} carMaker={carMaker} setEasySearchSort={setEasySearchSort} easySearchSort={easySearchSort}
+            disList={disList} priceList={priceList} yearList={yearList}
+            />}
             />
             <Route path='/sell' element={<SellPage/>}/>
             <Route path='/review' element={<Review/>}/>

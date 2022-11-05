@@ -3,9 +3,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import './css/board.css'
 import Footer from './Footer';
 import { Link, } from 'react-router-dom';
+import axios from 'axios';
 
 export default function Board({
-  postList,totalCar,buttonLen,pageNum,setPageNum,carMaker,setEasySearchSort,easySearchSort,disList,priceList,yearList
+  postList,totalCar,buttonLen,pageNum,setPageNum,carMaker,setEasySearchSort,easySearchSort,disList,priceList,yearList,isAdmin,setCarInfo,carInfo
 }) {
   const searchRef = useRef([])
   const rightDownRef = useRef()
@@ -137,8 +138,8 @@ export default function Board({
 
   // 년도 최솟값
   const setMinYear = (e) => {
-    console.log('최솟값 : '+e.target)
-    console.log(parseInt(e.target.value) > parseInt(yearInputRef.current[1].value))
+    // console.log('최솟값 : '+e.target)
+    // console.log(parseInt(e.target.value) > parseInt(yearInputRef.current[1].value))
     if(easySearchSort.year[1]){
       setEasySearchSort({...easySearchSort,
       year:[parseInt(e.target.value), parseInt(easySearchSort.year[1])].sort((a,b)=>(a-b))})
@@ -151,13 +152,13 @@ export default function Board({
       setEasySearchSort({...easySearchSort,
       year:[e.target.value, yearList[yearList.length-1]]})
     }
-    console.log('최솟값 누를때 배열 :'+easySearchSort.year)
+    // console.log('최솟값 누를때 배열 :'+easySearchSort.year)
   }
 
   // 년도 최댓값 구하기
   const setMaxYear = (e) => {
-    console.log('최댓값 : '+e.target.value)
-    console.log(parseInt(e.target.value) < parseInt(yearInputRef.current[0].value))
+    // console.log('최댓값 : '+e.target.value)
+    // console.log(parseInt(e.target.value) < parseInt(yearInputRef.current[0].value))
     if(easySearchSort.year[0]){
       (
         easySearchSort.year[0] === -1 ? 
@@ -175,7 +176,13 @@ export default function Board({
       setEasySearchSort({...easySearchSort,
       price:[-1, e.target.value]})
     }
-    console.log('최댓값 떄의 배열 '+easySearchSort.price)
+    // console.log('최댓값 떄의 배열 '+easySearchSort.price)
+  }
+
+  const clickDeleteBtn = async(target) => {
+    console.log(target)
+    await axios.delete('/delete', {data:{id:target.id}})
+    await axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
   }
 
   return ( 
@@ -281,6 +288,10 @@ export default function Board({
                   <span>{data.car_maker +' '}{data.car_name}</span>
                   <span style={{fontWeight:'bold'}}>{data.car_price.toLocaleString('ko-KR')}만원</span>
                   <span style={{fontSize:13,color:'#54555a'}}>{data.car_model_year.slice(2,4)}년 {data.car_model_year.slice(5)}월식 · {data.distance.toLocaleString('ko-KR')}km</span>
+                </div>
+                <div className='delete-btn' onClick={()=>clickDeleteBtn(data)}
+                style={{opacity:isAdmin?1:0, visibility:isAdmin?'visible':'hidden',}}>
+                  X
                 </div>
               </div>
             ))}

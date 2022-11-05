@@ -1,8 +1,10 @@
+import axios from 'axios'
 import React, { useRef, useState } from 'react'
 import { Link, useLocation, useNavigate} from 'react-router-dom'
 import './css/header.css'
 
-export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySearchSort}) {
+export default function Header({
+  setSearchValue,setIsSearch,setPageNum,setEasySearchSort,setCarInfo,setIsAdmin,isAdmin}) {
   const divBarRef = useRef([])
   const navListRef = useRef()
   let nav = useNavigate()
@@ -46,6 +48,7 @@ export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySea
     setEasySearchSort({
       maker:[],dis:[null,null],price:[null,null],year:[null,null]})
     setIsSearch('')
+    axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
   }
   
   // 모바일 버전 nav 숨기기
@@ -62,8 +65,10 @@ export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySea
     nav('/buy')
   }
 
-  
- 
+  const clickAdmin = () => {
+    setIsAdmin(prev=>!prev)
+  }
+
 
   return (
     <>
@@ -86,6 +91,11 @@ export default function Header({setSearchValue,setIsSearch,setPageNum,setEasySea
             >
             <img src="/img/logo3.png" alt="logo" />
           </Link>
+            <span className='admin-controll' onClick={clickAdmin} style={{
+              color:isAdmin?'#b70f28':'transparent'
+            }}>
+            관리자 로그인
+            </span>
         </div>
         <div className="nav">
           <Link to='/sell'>

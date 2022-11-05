@@ -279,8 +279,19 @@ li:hover{
   max-height : 6000px;
   /* height:140vh; */
   min-width: 800px;
+  position: relative;
 }
-
+.right-down .delete-btn{
+  cursor:pointer;
+  /* background-color: #a70e25; */
+  /* border:1px solid #a70e25; */
+  position:relative;
+  bottom:320px;
+  left: 80%;
+  width:20px;
+  height:20px;
+  transition:.2s;
+}
 .post{
   width:92%;
   min-width: 240px;

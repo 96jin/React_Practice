@@ -1,0 +1,19 @@
+.sellpage-wrap{
+  height:100vh;
+  background-color: antiquewhite;
+}
+.submit-box{
+  background-color: aquamarine;
+  width: 300px;
+  height: 500px;
+  margin:0 auto;
+  text-align: left;
+}
+.submit-box label{
+  display:inline-block;
+  width:100px;
+  background-color: blue;
+}
+.submit-box input{
+
+}

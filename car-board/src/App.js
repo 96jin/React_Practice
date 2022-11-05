@@ -52,11 +52,13 @@ function App() {
   const [searchValue, setSearchValue] = useState('')
   const [easySearchSort, setEasySearchSort] = useState({
     maker:[],dis:[null,null],price:[null,null],year:[null,null]})
+  const [isAdmin, setIsAdmin] = useState(false)  
+
 
   useEffect(() => {
     axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
   },[])
-
+  
   // 한 페이지에 띄울 인덱스 추출
   const firstIndex = (pageNum-1)*postPerPage
   const lastIndex = firstIndex + postPerPage
@@ -81,7 +83,7 @@ function App() {
   for(let y = 2010 ; y<=new Date().getFullYear() ; y++){
     yearList.push(y)
   }
-  console.log(yearList, new Date().getFullYear())
+  // console.log(yearList, new Date().getFullYear())
   
   let disList = carMinMaxInfo('distance',10000)
   let priceList = carMinMaxInfo('car_price', 1000)
@@ -93,7 +95,7 @@ function App() {
   useEffect(() => {
     setPageNum(1)
   },[easySearchSort])
-
+  
   return ( 
     <BrowserRouter>
       <div className="App">
@@ -102,6 +104,9 @@ function App() {
         setSearchValue={setSearchValue} 
         setPageNum={setPageNum}
         setEasySearchSort={setEasySearchSort}
+        setCarInfo={setCarInfo}
+        setIsAdmin={setIsAdmin}
+        isAdmin={isAdmin}
         />
         <Routes>
           <Route exact path='/' element={<Home/>}/>
@@ -110,7 +115,7 @@ function App() {
             element={
             <Board postList={postList} totalCar={newPostList.length} buttonLen={Math.ceil(newPostList.length/postPerPage)}
             pageNum={pageNum} setPageNum={setPageNum} carMaker={carMaker} setEasySearchSort={setEasySearchSort} easySearchSort={easySearchSort}
-            disList={disList} priceList={priceList} yearList={yearList}
+            disList={disList} priceList={priceList} yearList={yearList} isAdmin={isAdmin} setCarInfo={setCarInfo} carInfo={carInfo}
             />}
             />
             <Route path='/sell' element={<SellPage/>}/>

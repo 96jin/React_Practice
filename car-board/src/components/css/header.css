@@ -14,6 +14,13 @@ a{
   text-decoration: none;
   color:black;
 }
+.admin-controll{
+  font-size: 8px;
+  cursor: pointer;
+  position:absolute;
+  left:0;
+  transition:.2s;
+}
 
 .header>.logo{
   /* background-color: bisque; */
@@ -39,37 +46,6 @@ a{
   height:95%;
   margin-left: -5%;
 }
-/* 가상요소 */
-/* .nav a:first-child::before{
-  content:'';
-  width:0px;
-  bottom:30px;
-  height: 2px;
-  left:413px;
-  position: absolute;
-  background-color: #7f0000;
-  transition:.2s;
-}
-.nav a:first-child:hover::before{
-  width:80px;
-}
-
-.nav a:nth-child(2)::before{
-  content:'';
-  width:10px;
-  height: 10px;
-  position: absolute;
-  background-color: #7f0000;
-}
-
-.nav a:last-child::before{
-  content:'';
-  width:10px;
-  height: 10px;
-  position: absolute;
-  background-color: #7f0000;
-} */
-
 
 .nav-list{
   width: 100%;

@@ -1,29 +1,60 @@
 import axios from 'axios'
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import './css/sellpage.css'
 
 export default function SellPage() {
 
   const inputInfo = useRef([])
+  const [img, setImg] = useState('')
+  const [imgSrc, setImgSrc] = useState()
+
+  // 이미지 미리보기
+  const handleChangeImgInput = async(fileBlob) => {
+    if(!fileBlob){
+      setImgSrc()
+      return
+    }
+    let reader = new FileReader()
+    setImg(fileBlob)
+    reader.readAsDataURL(fileBlob)
+    return new Promise((resolve)=>{
+      reader.onload = () => {
+        setImgSrc(reader.result)
+        resolve()
+      }
+    })
+  }
 
   const handleSubmitCarInfo = async(e) => {
     e.preventDefault()
-    const car_maker = inputInfo.current[0].value
-    const car_model = inputInfo.current[1].value
-    const car_year = inputInfo.current[2].value
-    const car_distance = inputInfo.current[3].value
-    const car_price = inputInfo.current[4].value
-    const car_img = inputInfo.current[5].value
-    const newCarInfo = {maker:car_maker, model:car_model, year:car_year, distance:car_distance, price:car_price, img:car_img }
-    // const [car_maker,car_model,car_year,car_distance,car_price,car_img] = inputInfo.current[(cur)=>cur.value]
-    await axios.post('/insertCar', newCarInfo)
-    inputInfo.current.forEach((cur)=>cur.value = '')
-    
+    try{
+      const formData = new FormData()
+      formData.append('file', img)
+      console.log(formData)
+      formData.append('text',inputInfo.current[0].value)
+      formData.append('text',inputInfo.current[1].value)
+      formData.append('text',inputInfo.current[2].value)
+      formData.append('text',inputInfo.current[3].value)
+      formData.append('text',inputInfo.current[4].value)
+      inputInfo.current.forEach((cur)=>cur.value='')
+      setImgSrc('')
+      await axios.post('/insertCar', formData)
+      alert('등록 완료!')
+    }catch(e){
+      alert('제대로 입력해주세요')
+    }
   }
 
   return (
       <div className='sellpage-wrap'>
-        <form className='submit-box' onSubmit={handleSubmitCarInfo}>
+        <div className="car-img-thumbnail">
+          {imgSrc ? <img className='thumbnail-img' src={imgSrc} alt="" /> : <span>차량 사진을 등록해주세요</span>}
+        </div>
+        <form className='submit-box' onSubmit={handleSubmitCarInfo} encType="multipart/form-data">
+          <div>
+            <label htmlFor="car-img">사진</label>
+            <input type="file" accept='image/*' name='file' id='car-img' className="car-img" onChange={(e)=>handleChangeImgInput(e.target.files[0])}/>
+          </div>
           <div>
             <label htmlFor="car-maker-input">제조사</label>
             <input type="text" id='car-maker-input' className="car-maker-input" ref={el=>inputInfo.current[0]=el}/>
@@ -43,10 +74,6 @@ export default function SellPage() {
           <div>
             <label htmlFor="car-price-input">가격</label>
             <input type="text" id='car-price-input' className="car-price-input" ref={el=>inputInfo.current[4]=el}/>
-          </div>
-          <div>
-            <label htmlFor="car-img">사진</label>
-            <input type="file" accept='image/*' id='car-img' className="car-img" ref={el=>inputInfo.current[5]=el}/>
           </div>
           <button>등록</button>
         </form>

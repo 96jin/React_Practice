@@ -4,6 +4,25 @@ const app = express()
 
 const PORT = process.env.PORT || 3500;
 
+const multer = require('multer')  
+const dir = 'F:/FrontEnd/React_practice/car-board/public'
+let storage = multer.diskStorage({
+  destination(req,file,cb){
+    cb(null,`${dir}/upload`)
+  },
+  filename(req,file,cb){
+    cb(null, `${Date.now()}__${file.originalname}`)
+  },
+})
+let upload = multer({storage:storage})
+// 사진 업로드를 위해서 multer를 가져오고, 경로를 설정해준다.
+// 입력한 파일이 uploads/폴더 내에 저장된다.
+
+let fs = require('fs')
+// fs는 node.js에 들어있는 module로, file system의 약자이다.
+// 서버의 파일/폴더에 접근할 수 있는 함수들이 들어있다.
+// 파일업로드와 직접적인 연관이 있는것은 아니고, 저장할 폴더를 생성하기 위해 사용
+
 const db = require('./config/db.js')
 app.use(express.json()) // body-parser 대신 express.json() 사용해도 된다.
 
@@ -20,13 +39,16 @@ app.get('/selectAll',(req,res) => {
   })
 })
 
-app.post('/insertCar',(req,res) => {
+app.post('/insertCar',upload.single('file'),(req,res) => {
   console.log(req.body)
-  const {maker,model,year,distance,price,img} = req.body
-  db.query('insert into cars (car_maker,car_name,car_model_year,distance,car_price,car_image) values (?,?,?,?,?,?)',[maker,model,year,distance,price,img],(err,data) => {
+  console.log(req.file)
+  const [maker,model,year,distance,price] = [...req.body.text]
+  const imgUrl = '/upload/'+req.file.filename
+  const sql = 'insert into cars (car_maker,car_name,car_model_year,distance,car_price,car_image) values (?,?,?,?,?,?)'
+  db.query(sql,[maker,model,year,distance,price,imgUrl], (err,data) => {
     if(!err){
-      console.log('등록 완료')
-      res.end()
+      console.log('입력 완료')
+      res.send(req.file.filename)
     }
     else{
       console.log(err)
@@ -48,5 +70,8 @@ app.delete('/delete',(req,res) => {
 })
 
 app.listen(PORT , ()=>{
-  console.log(`Server Connected : ${PORT}`)
+  let folder = dir + '/upload'
+  if(!fs.existsSync('folder')) fs.mkdirSync('folder')
+  // dir폴더가 존재하지 확인하고, 없으면 폴더를 생성
+  console.log(`server on! : ${PORT}`)
 })

@@ -31,7 +31,7 @@ li:hover{
   height:700px;
   position: sticky;
   top:20px;
-  padding-left: 3%;
+  padding-left: 1%;
   padding-top: 10px;
   box-sizing: border-box;
 }
@@ -41,6 +41,7 @@ li:hover{
   color: white;
   border-radius: 10px;
   width:96%;
+  min-width:244px;
   max-width: 260px;
   /* margin: 0 auto; */
   cursor:pointer;
@@ -79,6 +80,7 @@ li:hover{
   height:40px;
   font-weight: 700;
   /* background-color: aquamarine; */
+  width:97%;
   cursor: pointer;
   margin-bottom: 10px;
   margin-top: 10px;
@@ -174,7 +176,7 @@ li:hover{
   /* background-color: #a70e25; */
   border:none;
   border-radius: 8px;
-  width:100px;
+  width:34%;
   height:30px;
   text-align: left;
   margin-top: 10px;
@@ -202,14 +204,14 @@ li:hover{
 }
 
 .dis-select-wrap span{
-  margin:0 8px;
+  margin:0 12px;
   /* background-color: #16171d; */
 }
 .price-wrap span{
-  margin:0 8px;
+  margin:0 12px;
 }
 .year-wrap span{
-  margin:0 8px;
+  margin:0 12px;
 }
 
 .year-search{
@@ -254,11 +256,15 @@ li:hover{
   padding-right: 5px;
   box-sizing: border-box;
 }
-
+.right{
+  padding-right: 4%;
+  box-sizing: border-box;
+}
 .right-up{
   margin:0 auto;
   position: relative;
-  width:94%;
+  width:95%;
+  min-width: 730px;
   border-bottom: 1px solid #16171d;
   margin-bottom: 10px;
   /* background-color: antiquewhite; */
@@ -287,7 +293,7 @@ li:hover{
   /* border:1px solid #a70e25; */
   position:relative;
   bottom:320px;
-  left: 80%;
+  left: 85%;
   width:20px;
   height:20px;
   transition:.2s;
@@ -388,6 +394,13 @@ li:hover{
 }
 
 @media screen and (max-width:540px){
+  .right{
+    min-width:310px;
+  }
+  .right-up{
+    min-width:310px;
+  }
+  
   .right-down{
     grid-template-columns: 1fr;
     grid-template-rows: repeat(12, 1fr);

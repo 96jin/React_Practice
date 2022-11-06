@@ -1,11 +1,22 @@
 .sellpage-wrap{
   height:100vh;
   background-color: antiquewhite;
+  padding-top: 35px;
+  box-sizing: border-box;
+}
+.car-img-thumbnail{
+  width:30%;
+  
+  background-color: pink;
+  margin:0px auto 0;
+}
+.thumbnail-img{
+  width:100%;
 }
 .submit-box{
   background-color: aquamarine;
-  width: 300px;
-  height: 500px;
+  width: 600px;
+  /* height: 100px; */
   margin:0 auto;
   text-align: left;
 }
@@ -14,6 +25,7 @@
   width:100px;
   background-color: blue;
 }
-.submit-box input{
 
+.submit-box input{
+  border:none;
 }

@@ -56,7 +56,9 @@ a{
   margin-bottom: 20px;
   position:relative;
 }
-
+.nav-list:hover{
+  color:#b70f28;
+}
 .nav-list div{
   /* background-color: white; */
   height:2px;

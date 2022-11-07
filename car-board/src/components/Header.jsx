@@ -87,7 +87,7 @@ export default function Header({
       <div className='header'>
         <div className="logo">
           <Link to="/"
-            // onClick={()=>handleSlideBar()}
+            onClick={()=>window.scrollTo({top:0,left:0,behavior:'smooth'})}
             >
             <img src="/img/logo3.png" alt="logo" />
           </Link>

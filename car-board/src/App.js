@@ -54,7 +54,9 @@ function App() {
     maker:[],dis:[null,null],price:[null,null],year:[null,null]})
   const [isAdmin, setIsAdmin] = useState(false)  
 
-
+  // 홈화면 추천 인덱스 생성
+  const randInt = [Math.floor(Math.random()*1000),Math.floor(Math.random()*1000),Math.floor(Math.random()*1000)]
+  
   useEffect(() => {
     axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
   },[])
@@ -109,7 +111,7 @@ function App() {
         isAdmin={isAdmin}
         />
         <Routes>
-          <Route exact path='/' element={<Home/>}/>
+          <Route exact path='/' element={<Home randInt={randInt} carInfo={carInfo}/>}/>
           <Route 
             path='/buy/*'
             element={

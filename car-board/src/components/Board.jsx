@@ -181,8 +181,12 @@ export default function Board({
 
   const clickDeleteBtn = async(target) => {
     console.log(target)
-    await axios.delete('/delete', {data:{id:target.id}})
-    await axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
+    let confirmDelete = window.confirm('삭제하시겠습니까?')
+    if(confirmDelete){
+      await axios.delete('/delete', {data:{id:target.id}})
+      await axios.get('/selectAll').then((result)=>{setCarInfo(result.data)})
+      return
+    }
   }
 
   return ( 
@@ -232,7 +236,7 @@ export default function Board({
               <div className='search-box-style' onClick={()=>setIsShowYear(!isShowYear)}>년식</div>
               <div className='year-wrap' ref={el=>searchRef.current[2]=el}>
                 <select className="search-select" name="minYearName" id="minYearId" onChange={(e)=>setMinYear(e)} ref={el=>yearInputRef.current[0]=el}>
-                  <option value="0">
+                  <option value={yearList[0]}>
                     최소
                   </option>
                   {yearList.map((year, idx)=>(

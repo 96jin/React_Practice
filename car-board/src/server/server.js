@@ -52,6 +52,7 @@ app.post('/insertCar',upload.single('file'),(req,res) => {
     }
     else{
       console.log(err)
+      res.send()
     }
   })
 })

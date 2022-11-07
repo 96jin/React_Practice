@@ -6,10 +6,11 @@
   position: relative;
   /* background-color: black; */
 }
+body{}
 
 html::-webkit-scrollbar{
   width:3px;
-  
+  height:1px;
   /* 전체 두께 */
   /* background-color: black; */
 }

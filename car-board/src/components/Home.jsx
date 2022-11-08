@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import './css/home.css'
+import { Link } from 'react-router-dom';
 
 export default function Home({randInt,carInfo}) {
   
@@ -15,11 +16,11 @@ export default function Home({randInt,carInfo}) {
   
   // 새로고침시 제일 위로
   window.history.scrollRestoration = "manual";
+
   const todayCarList = carInfo.filter((cars)=>cars.id === randInt[0] || cars.id === randInt[1] || cars.id === randInt[2])
-  console.log(todayCarList)
+  
   const prevSlide = () => {
     setIsFirstOrLast(false)
-    // clearInterval(slideTimer)
     if(slideNum === 1){
       setSlideNum(slideNum-1)
       setTimeout(()=>{
@@ -31,6 +32,7 @@ export default function Home({randInt,carInfo}) {
     setSlideNum(slideNum - 1)
   }
 
+  // 자동으로 슬라이드 구현하기위해 useCallback 사용
   const nextSlide = useCallback(() => {
     if(slideRef.current===1) setIsFirstOrLast(false)
     
@@ -63,7 +65,7 @@ export default function Home({randInt,carInfo}) {
     }
   },[nextSlide])
 
-  console.log(slideRef.current)
+  // console.log(slideRef.current)
   // console.log(slideNum)
   return (
     <div className="home-wrap">
@@ -99,7 +101,7 @@ export default function Home({randInt,carInfo}) {
           {todayCarList.map((cars)=>(
             <div key={cars.id} className='pick-car-list'>
               <div className='pick-car-img-box'>
-                <img src={cars.car_image} alt="car" />
+                <Link to={`/buy/${cars.id}`}><img src={cars.car_image} alt="car" /></Link>
               </div>
               <div>
                 <span className='pick-car-maker'>{cars.car_maker+' '+cars.car_name}</span>

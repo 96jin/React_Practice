@@ -82,6 +82,7 @@ a{
   visibility: hidden;
 }
 .search-area{
+  margin: 0 auto;
   background-color: beige;
   width:260px;
   height:40px;
@@ -167,7 +168,7 @@ a{
 
 @media screen and (max-width:1000px){
   .header{
-    min-width: 740px;
+    min-width: 780px;
   }
   .logo img{
     left:50%;

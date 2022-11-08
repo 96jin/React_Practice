@@ -9,7 +9,8 @@ export default function Footer({buttonLen,pageNum,setPageNum}) {
     btnArr.push(i)
     i++
   }
-  
+  // 새로고침시 현재위치를 기억하여 그 자리를 유지
+  window.history.scrollRestoration = "auto";
 
   const handlePrev = () => {
     setPageNum(pageNum - 1)

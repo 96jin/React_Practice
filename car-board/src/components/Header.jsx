@@ -12,7 +12,7 @@ export default function Header({
 
   // 슬라이드 바 이동
   const firstPageSlideBar = () => {
-    // console.log(location.pathname)
+    console.log(location.pathname)
     switch(location.pathname){
       case '/' : handleSlideBar()
         break;
@@ -22,7 +22,7 @@ export default function Header({
         break;
       case '/review' : handleSlideBar(2)
         break;
-      default:
+      default: handleSlideBar(1)
     }
   }
    // 메뉴 언더바
@@ -132,7 +132,7 @@ export default function Header({
             <form onSubmit={handleSearch}>
               <input type="text" ref={inputRef} placeholder='ex) audi'/>
               <button className='search-btn'>
-                <img src="./img/search.svg" alt="돋보기" />
+                <img src="/img/search.svg" alt="돋보기" />
               </button>
             </form>
           </div>

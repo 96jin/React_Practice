@@ -1,0 +1,277 @@
+.detail-car-wrap{
+  /* margin-top: 30px; */
+  /* background-color: aquamarine; */
+  width:88%;
+  /* min-width: 1100px; */
+  margin:0 auto;
+  height:100%;
+  font-family: sans-serif
+}
+.detail-title-wrap{
+  margin-top: 30px;
+  margin-bottom: 20px;
+  /* padding-left: 30px; */
+  box-sizing: border-box;
+  /* background-color: rgb(176, 176, 218); */
+  height:100px;
+  display:flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.detail-title-left{
+  /* background-color: brown; */
+  height:100%;
+  /* width:400px; */
+}
+.detail-title{
+  /* background-color: bisque; */
+  text-align: left;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+.detail-title-info{
+  margin-left: 5px;
+  font-size: 1rem;
+  margin-top: 10px;
+  /* background-color: antiquewhite; */
+  color:#54555a;
+  text-align: left;
+}
+.detail-title-info span{
+  margin-right: 15px;
+}
+
+.detail-title-right{
+  /* background-color: blueviolet; */
+  height: 100%;
+  width: 350px;
+  /* padding-right: 30px; */
+  box-sizing: border-box;
+}
+.detail-title-price{
+  text-align: right;
+  font-weight: 700;
+  font-size: 21px;
+}
+.detail-title-right strong{
+  font-size: 2rem;
+  text-align: right;
+  color:#b70f28;
+}
+.detail-title-price .monthly-price-wrap{
+  margin-right: 2px;
+  position: relative;
+  /* background-color: #8f4f59; */
+}
+.detail-title-price .monthly-price{
+  color:#b70f28;
+}
+.etc-img{ 
+  position: relative;
+  width:13px;
+  cursor:pointer;
+  margin-right: 4px;
+}
+.etc-info-wrap{
+  position: relative;
+  /* background-color: aqua; */
+}
+.etc-info{
+  position: absolute;
+  font-weight: normal;
+  font-size: 12px;
+  display: block;
+  width:340px;
+  background-color: #54555a;
+  text-align: left;
+  
+  color:white;
+  padding:7px 10px;
+  border-radius: 10px;
+  visibility: hidden;
+  transition: .3s;
+  opacity: 0;
+  z-index: 2;
+}
+
+.detail-car-image{
+  width:100%;
+  height:100vh;
+  /* background-color: yellow; */
+  border:2px solid gray;
+  box-sizing: border-box;
+}
+.detail-car-image img{
+  height:100%;
+  max-width: 100%;
+  /* width:90%; */
+}
+.detail-car-info-wrap{
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+.detail-car-info-left{
+  height:1000px;
+  /* background-color: #54555a; */
+}
+
+.left-car-title{
+  /* background-color: rgb(127, 255, 138); */
+  text-align: left;
+}
+.left-car-title strong{
+  color:#b70f28;
+  font-size: 2.8rem;
+}
+.left-car-title .monthly-price,.left-car-title-monthly-wrap{
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-left: 2px;
+}
+.left-car-options{
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  text-align: center;
+  margin-top: 50px;
+  height:100px;
+  /* background-color: chocolate; */
+}
+.left-car-basic-info{
+  width:90%;
+  height:100px;
+  border-radius: 11px;
+  /* background-color: antiquewhite; */
+  padding-top: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  background-color: #efefef4d;
+  border: 2px solid rgba(118, 118, 118, 0.3);
+}
+.left-car-basic-info div{
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.left-car-basic-info span{
+  color: #54555a;
+}
+.left-car-distance{
+  width:90%;
+  height:100px;
+  /* background-color: antiquewhite; */
+  /* border: 2px solid #e2e8ee; */
+  border-radius: 11px;
+  padding-top: 20px;
+  box-sizing: border-box;
+  background-color: #efefef4d;
+  border: 2px solid rgba(118, 118, 118, 0.3);
+}
+.left-car-distance span{
+  color:#54555a;
+}
+.left-car-distance div{
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+.total-cal{
+  width:100%;
+  height:100%;
+  /* background-color: slateblue; */
+}
+.total-cal>.cal-first{
+  margin-top: 40px;
+  display:grid;
+  grid-template-columns: 3fr 2fr;
+  height:120px;
+}
+.cal-first>.expected-price{
+  /* background-color: bisque; */
+  width:100%;
+}
+.expected-price{
+  text-align: left;
+}
+.expected-price strong{
+  font-size: 1.1rem;
+}
+.expected-price input{
+  width:90%;
+  text-align: right;
+  height:50px;
+  font-size: 1.3rem;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+.cal-first>.first-pay{
+  /* background-color: rgb(161, 123, 76); */
+  width:100%;
+  text-align: left;
+}
+.first-pay strong{
+  font-size: 1.1rem;
+}
+.first-pay input{
+  width:90%;
+  text-align: right;
+  height:50px;
+  font-size: 1.3rem;
+  border-radius: 12px;
+  margin-top: 10px;
+}
+
+.car-second{
+  /* background-color: crimson; */
+  display: flex;
+  justify-content: space-between;
+  margin-right: 3%;
+}
+.car-second div{
+  /* background-color: #54555a; */
+  padding-top: 6px;
+  box-sizing: border-box;
+}
+.car-second strong{
+  font-size: 1rem;
+}
+.car-second span{
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.monthly-period-wrap{
+  /* background-color: violet; */
+  margin-top: 50px;
+  text-align: left;
+}
+.monthly-period{
+  display: flex;
+  justify-content: space-around;
+}
+
+.cal-final{
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+}
+.cal-final-left{
+  /* background-color: bisque; */
+}
+.cal-final-left div{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+}
+.final-left-text{
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.final-left-price{
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+.detail-car-info-right{
+  background-color: #b70f28;
+  height:1000px;
+}

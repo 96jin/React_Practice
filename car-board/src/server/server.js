@@ -39,6 +39,20 @@ app.get('/selectAll',(req,res) => {
   })
 })
 
+app.get('/selectWhere/:id',(req,res) => {
+  console.log('선택요청')
+  const {id} = req.params
+  sql='select * from cars where id = ?'
+  db.query(sql,[id],(err,data) => {
+    if(!err){
+      res.send(data)
+    }
+    else{
+      console.log(err)
+    }
+  })
+})
+
 app.post('/insertCar',upload.single('file'),(req,res) => {
   console.log(req.body)
   console.log(req.file)

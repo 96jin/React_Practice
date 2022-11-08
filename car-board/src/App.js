@@ -8,6 +8,7 @@ import Home from './components/Home';
 import SellPage from './components/SellPage';
 import Review from './components/Review';
 import searchSort from './hooks&functions/searchSort';
+import DetailCar from './components/DetailCar';
 
 
 function App() {
@@ -111,15 +112,16 @@ function App() {
         isAdmin={isAdmin}
         />
         <Routes>
-          <Route exact path='/' element={<Home randInt={randInt} carInfo={carInfo}/>}/>
+          <Route path='/' element={<Home randInt={randInt} carInfo={carInfo}/>}/>
           <Route 
-            path='/buy/*'
+            path='/buy'
             element={
             <Board postList={postList} totalCar={newPostList.length} buttonLen={Math.ceil(newPostList.length/postPerPage)}
             pageNum={pageNum} setPageNum={setPageNum} carMaker={carMaker} setEasySearchSort={setEasySearchSort} easySearchSort={easySearchSort}
             disList={disList} priceList={priceList} yearList={yearList} isAdmin={isAdmin} setCarInfo={setCarInfo} carInfo={carInfo}
             />}
             />
+            <Route path='/buy/:id' element={<DetailCar/>}/>
             <Route path='/sell' element={<SellPage/>}/>
             <Route path='/review' element={<Review/>}/>
         </Routes>

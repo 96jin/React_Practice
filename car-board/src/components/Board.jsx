@@ -286,7 +286,7 @@ export default function Board({
             {postList.map((data)=>(
               <div className='post' key={data.id}>
                 <div className='img'>
-                  <Link to={`/buy/${data.id}`}><img src={data.car_image} alt="차량" /></Link>
+                  <Link to={`/buy/${data.id}`} onClick={()=>window.scrollTo({top:0,left:0,behavior:'smooth'})}><img src={data.car_image} alt="차량" /></Link>
                 </div>
                 <div className="car-info">
                   <span>{data.car_maker +' '}{data.car_name}</span>

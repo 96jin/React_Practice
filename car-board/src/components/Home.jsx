@@ -101,7 +101,7 @@ export default function Home({randInt,carInfo}) {
           {todayCarList.map((cars)=>(
             <div key={cars.id} className='pick-car-list'>
               <div className='pick-car-img-box'>
-                <Link to={`/buy/${cars.id}`}><img src={cars.car_image} alt="car" /></Link>
+                <Link to={`/buy/${cars.id}`}><img src={cars.car_image} alt="car" onClick={()=>window.scrollTo({top:0,left:0,behavior:'smooth'})}/></Link>
               </div>
               <div>
                 <span className='pick-car-maker'>{cars.car_maker+' '+cars.car_name}</span>

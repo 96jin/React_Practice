@@ -22,14 +22,17 @@ export default function Home({randInt,carInfo}) {
   const prevSlide = () => {
     setIsFirstOrLast(false)
     if(slideNum === 1){
-      setSlideNum(slideNum-1)
+      slideRef.current--
+      setSlideNum(slideRef.current)
+      slideRef.current = slideLen - 2
       setTimeout(()=>{
         setIsFirstOrLast(true)
-        setSlideNum(slideLen-2)
+        setSlideNum(slideRef.current)
       },400)
       return
     }
-    setSlideNum(slideNum - 1)
+    slideRef.current--
+    setSlideNum(slideRef.current)
   }
 
   // 자동으로 슬라이드 구현하기위해 useCallback 사용

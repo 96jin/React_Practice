@@ -86,7 +86,7 @@ app.delete('/delete',(req,res) => {
 
 app.listen(PORT , ()=>{
   let folder = dir + '/upload'
-  if(!fs.existsSync('folder')) fs.mkdirSync('folder')
+  if(!fs.existsSync(folder)) fs.mkdirSync('upload')
   // dir폴더가 존재하지 확인하고, 없으면 폴더를 생성
   console.log(`server on! : ${PORT}`)
 })

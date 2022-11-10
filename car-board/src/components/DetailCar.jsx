@@ -23,7 +23,7 @@ export default function DetailCar() {
 
   if(!detailCar[0]){
     console.log('로딩중')
-    return <div style={{fontWeight:'bold',fontSize:50,margin:'0 auto',width:'100%',height:'100vh',backgroundColor:'#c4c9c9'}}>Loading..</div>
+    return <div style={{fontWeight:'bold',fontSize:50,margin:'0 auto',width:'100%',height:'100vh',backgroundColor:'#f2f2f345'}}>Loading..</div>
   }
   const car = detailCar[0]
   const carPrice = car.car_price
@@ -213,8 +213,10 @@ export default function DetailCar() {
             </div>
           </div>
         </div>
-
         <div className="detail-car-info-right">
+        <div className='summary-in-1000px'>
+          구매 예상 비용
+        </div>
           <div className='detail-right-wrap'>
             <span>{car.car_maker}</span>
             <span>{car.car_name}</span>

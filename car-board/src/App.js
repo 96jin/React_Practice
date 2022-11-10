@@ -54,7 +54,7 @@ function App() {
   const [easySearchSort, setEasySearchSort] = useState({
     maker:[],dis:[null,null],price:[null,null],year:[null,null]})
   const [isAdmin, setIsAdmin] = useState(false)  
-
+  
   // 홈화면 추천 인덱스 생성
   const randInt = [Math.floor(Math.random()*1000),Math.floor(Math.random()*1000),Math.floor(Math.random()*1000)]
   

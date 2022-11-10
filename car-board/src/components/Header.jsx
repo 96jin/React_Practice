@@ -12,7 +12,7 @@ export default function Header({
 
   // 슬라이드 바 이동
   const firstPageSlideBar = () => {
-    console.log(location.pathname)
+    // console.log(location.pathname)
     switch(location.pathname){
       case '/' : handleSlideBar()
         break;

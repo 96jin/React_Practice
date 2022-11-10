@@ -11,7 +11,7 @@ let storage = multer.diskStorage({
     cb(null,`${dir}/upload`)
   },
   filename(req,file,cb){
-    cb(null, `${Date.now()}__${file.originalname}`)
+    cb(null, `${Date.now()}__${encodeURIComponent(file.originalname)}`)
   },
 })
 let upload = multer({storage:storage})
@@ -25,6 +25,14 @@ let fs = require('fs')
 
 const db = require('./config/db.js')
 app.use(express.json()) // body-parser 대신 express.json() 사용해도 된다.
+
+// 배포상태면~
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "Client/build")));
+}
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "Client/build", "index.html"));
+});
 
 app.get('/selectAll',(req,res) => {
   console.log('요청')
@@ -86,7 +94,7 @@ app.delete('/delete',(req,res) => {
 
 app.listen(PORT , ()=>{
   let folder = dir + '/upload'
-  if(!fs.existsSync(folder)) fs.mkdirSync('upload')
+  if(!fs.existsSync('upload')) fs.mkdirSync('upload')
   // dir폴더가 존재하지 확인하고, 없으면 폴더를 생성
   console.log(`server on! : ${PORT}`)
 })

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <form>
+    <label for="id">ID</label><input type="text" id="id"><br>
+    <label for="pw">PW</label><input type="password" id="pw"><br>
+    <button>로그인</button>
+  </form>
+  <script>
+    const $id = document.getElementById('id')
+    const $pw = document.getElementById('pw')
+    const $form = document.querySelector('form')
+    
+    $form.addEventListener('submit', async(e) => {
+      e.preventDefault()
+      console.log($id.value)
+      const result = await fetch(('http://localhost:4000/login/'+$id.value+'&'+$pw.value),{
+        method:'GET'
+      })
+      console.log(result)
+      console.log(result.status === 200 ? '성공' : '실패')
+      window.location.href = result.url
+      
+    })
+  </script>
+</body>
+</html>

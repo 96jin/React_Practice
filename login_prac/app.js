@@ -1,22 +1,28 @@
 const express = require('express')
 const app = express()
 
-const db = require('./config/db.js')
+const db = require('./src/config/db.js')
+app.use(express.json())
+app.use(express.urlencoded({extended:true}))
+// URL을 통해 전달되는 데이터에 한글, 공백 등과 같은 문자가 포함될 경우 제대로 인식되지 않는 문제 해결
 
 // 암호화
 const bcrypt = require('bcrypt')
 const saltRounds = 10
 
-//app 세팅 기본 경로를 설정해준다. res.render()로 화면출력 가능
-app.set("views", "./views")
+// app 세팅 기본 경로를 설정해준다. res.render()로 화면출력 가능
+// views 로 사용할 템플릿 엔진이 있는 디렉토리 설정, view engine으로 뷰 엔진 설정, 해당 엔진 설치해줘야함 npm i ejs
+app.set("views", "./src/views")
 app.set("view engine", "ejs")
+app.use(express.static(`${__dirname}/src/public`))
+// __dirname은 현재 app.js 가 있는 위치를 반환
+// express.static는 해당 경로를 정적경로로 추가해주겠다는 말이다.
 
 // 라우팅
-const home = require('./routes/home') // home 안에있는 index.js를 읽는다
+const home = require('./src/routes/home') // home 안에있는 index.js를 읽는다
 app.use('/',home)
 // use는 미들웨어를 등록하는 메서드
 
-app.use(express.json())
 
 // 세션관리 미들웨어 작성
 const cors = require('cors')
@@ -83,7 +89,7 @@ app.get('/login/:id&:pw', async(req,res) => {
         // compare문에서는 true / false를 반환해준다.
         if(result){ // 성공
           console.log('성공')
-          res.redirect('F:/FrontEnd/React_practice/login_prac/ok.html')
+          res.render('home/ok')
         }
         else{       // 실패
           console.log('실패')

@@ -1,0 +1,11 @@
+[0mGET /register [36m304[0m 6.608 ms - -[0m
+[0mGET /css/home/register.css [36m304[0m 1.059 ms - -[0m
+[0mGET /js/home/register.js [36m304[0m 0.712 ms - -[0m
+GET /register 304 - - 6.917 ms
+GET /css/home/register.css 304 - - 1.201 ms
+GET /js/home/register.js 304 - - 0.454 ms
+::1 - - [17/Nov/2022:08:18:38 +0000] "GET /login HTTP/1.1" 304 -
+::1 - - [17/Nov/2022:08:18:38 +0000] "GET /css/home/login.css HTTP/1.1" 304 -
+::1 - - [17/Nov/2022:08:18:38 +0000] "GET /js/home/login.js HTTP/1.1" 304 -
+::1 - - [17/Nov/2022:08:18:41 +0000] "POST /login HTTP/1.1" 200 16
+::1 - - [17/Nov/2022:08:18:41 +0000] "GET /ok HTTP/1.1" 304 -

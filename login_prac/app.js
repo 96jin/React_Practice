@@ -1,5 +1,14 @@
 const express = require('express')
+const dotenv = require('dotenv')
+dotenv.config()
+
+const morgan = require('morgan')
+
 const app = express()
+
+const accessLogStream = require('./src/config/log.js')
+app.use(morgan('common', {stream : accessLogStream}))
+app.use(morgan('dev'))
 
 const db = require('./src/config/db.js')
 app.use(express.json())

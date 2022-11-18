@@ -5,6 +5,9 @@ const $form = document.querySelector('.login-form')
 const login = (e) => {
   e.preventDefault()
   console.log($id.value)
+  if(!$id.value) return alert('아이디를 입력해주세요')
+  if(!$pw.value) return alert('비밀번호를 입력해주세요.')
+
   fetch(('/login'),{
     method:"POST",
     headers:{ // 데이터의 타입을 명시 json 타입으로 전달한다~를 헤더에 명시
@@ -21,6 +24,7 @@ const login = (e) => {
       window.location.href = '/ok'
     }
     else{
+      if(res.err) return alert(res.err)
       alert(res.msg)
     }
   })

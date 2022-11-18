@@ -9,6 +9,9 @@ const register = (e) => {
   if(!$id.value){
     return alert('아이디를 입력해주세요')
   }
+  if(!$pw.value){
+    return alert('비밀번호를 입력해주세요')
+  }
   if($pw.value !== $pw2.value){
     return alert('비밀번호가 같지 않습니다.')
   }

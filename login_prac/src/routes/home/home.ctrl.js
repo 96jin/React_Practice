@@ -1,4 +1,5 @@
 "use strict"
+const logger = require('../../config/logger')
 const User = require('../../models/User')
 // 콜백함수를 수행하는 이 부분을 컨트롤러 라고 한다.
 
@@ -8,18 +9,23 @@ const User = require('../../models/User')
 // }
 // 모델은 데이터를 가지고있는것 또는 데이터를 조작하고 로직을 처리하는 부분
 
+
 const output = {
   home : (req,res) => {
+    logger.info('GET / 200 "홈 화면으로 이동')
     res.render('home/index')
     // render는 ejs파일만 전송해준다.
   },
   login : (req,res) => {
+    logger.info('GET /login 200 "로그인 화면으로 이동')
     res.render('home/login')
   },
   register : (req,res) => {
+    logger.info('GET /register 200 "회원가입 화면으로 이동')
     res.render('home/register')
   },
   ok : (req,res) => {
+    logger.info('GET /ok 200 "회원가입 성공 화면으로 이동')
     res.render('home/ok')
   }
 }
@@ -27,7 +33,7 @@ const process = {
   login : async (req,res) => {
     const user = new User(req.body) // user의 인스턴스화
     const response = await user.login()
-    // console.log(response)
+    logger.info(`POST /login 200 Response: "success: ${response.success}, msg: ${response.msg}`)
     return res.json(response)
 
     // const id = req.body.id
@@ -53,6 +59,7 @@ const process = {
   register : async (req,res) => {
     const user = new User(req.body)
     const response = await user.register()
+    logger.info(`POST /register 200 Response: "success: ${response.success}, msg: ${response.msg}`)
     return res.json(response)
   }
 }

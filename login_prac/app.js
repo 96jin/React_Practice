@@ -41,7 +41,7 @@ const cookieParser = require('cookie-parser')
 
 app.use(cors({
   origin:true,  // 데이터 요청을 하면 origin이라는 헤더를 포함하게된다. 이를 모두 허용해준다는 뜻, true가 아닌 특정 url을 적어도 된다.
-  credentials:true  // credentials:true가 없는 헤더의 요청을 거부하는 사이트들(거의 대부분)을 방지하기 위해
+  credentials:true  // credentials:true가 없는 헤더의 요청을 거부하는 사이트들(거의 대부분이 true를 요구한다.)을 방지하기 위해
 }))
 app.use(cookieParser())
 app.use(
@@ -56,11 +56,9 @@ app.use(
   })
 )
 // 세션이 저장될 key 값을 정해주고, secret은 서명에 필요한 값. 이 두가지는 env파일에 저장하는것을 추천.
-// resave 는 (간단하게) 수정이 되지 않아도 다시 저장을 할건지에 관한 내용
+// resave 는 (간단하게) 세션이 수정이 되지 않아도 다시 저장을 할건지에 관한 내용
 // saveUninitialized 는 false를 선택하면 로그인 세션을 구현하거나 서버 스토리지 사용량을 줄이거나 쿠키를 설정하기전에 권한이 필요한 법률을 준수하는데 유용하므로 false로 지정했다.
 // cookie를 이용하여 session을 관리해주며 expires 로 쿠키가 얼마나 지속될건지 설정.
-
-
 
 app.get('/register/:id&:pw&:name', (req,res) => {
   const info = [req.params.id, req.params.pw, req.params.name]

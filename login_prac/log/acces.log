@@ -61,3 +61,15 @@ GET /js/home/register.js 304 - - 0.454 ms
 ::1 - - [18/Nov/2022:02:00:11 +0000] "GET /register HTTP/1.1" 200 965
 ::1 - - [18/Nov/2022:02:00:11 +0000] "GET /css/home/register.css HTTP/1.1" 304 -
 ::1 - - [18/Nov/2022:02:00:11 +0000] "GET /js/home/register.js HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:16:03 +0000] "GET / HTTP/1.1" 200 322
+::1 - - [18/Nov/2022:04:16:05 +0000] "GET /login HTTP/1.1" 200 1147
+::1 - - [18/Nov/2022:04:16:05 +0000] "GET /css/home/login.css HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:16:05 +0000] "GET /js/home/login.js HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:16:08 +0000] "POST /login HTTP/1.1" 200 16
+::1 - - [18/Nov/2022:04:16:08 +0000] "GET /ok HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:16:09 +0000] "GET /ok HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:16:10 +0000] "GET /ok HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:16:12 +0000] "GET /login HTTP/1.1" 200 1147
+::1 - - [18/Nov/2022:04:16:12 +0000] "GET /css/home/login.css HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:16:12 +0000] "GET /js/home/login.js HTTP/1.1" 304 -
+::1 - - [18/Nov/2022:04:26:12 +0000] "GET /css/home/login.css HTTP/1.1" 304 -

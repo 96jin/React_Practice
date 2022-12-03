@@ -1,7 +1,5 @@
 import './App.css';
-import { useState } from 'react';
 import {createStore} from 'redux'
-import {configureStore} from '@reduxjs/toolkit'
 import {Provider, useSelector, useDispatch, connect} from 'react-redux'
 
 function reducer(currentState, action) {

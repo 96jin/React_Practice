@@ -37,6 +37,7 @@ export async function getStaticProps({ params }) {
 
 export default function Posts({postData}) {
   const router = useRouter()
+
   useEffect(() => {
     const getText = async () => {
       const res = await fetch('/api/hello')
@@ -44,6 +45,13 @@ export default function Posts({postData}) {
       alert(data.text)
     }
     getText()
+
+    const getPid = async () => {
+      const res = await fetch(`/api/post/${postData.title}`)
+      const data = await res.json()
+      console.log(data.text)
+    }
+    getPid()
   },[])
 
   // fallback 을 true 로 전달하면~ 동적으로 대응
